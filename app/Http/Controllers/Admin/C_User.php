@@ -17,7 +17,7 @@ class C_User extends Controller
         return view("Admin.User.index", compact("data_user"));
     }
 
-    function create_user(Request $request){
+    public function create_user(Request $request){
         $request->validate([
             "nama_pengguna" => "required",
             "nik" => "required",
@@ -43,7 +43,7 @@ class C_User extends Controller
         }
     }
 
-    function edit_user(Request $request, $id){
+    public function edit_user(Request $request, $id){
         $request->validate([
             "nama_pengguna" => "required",
             "nik" => "required",
