@@ -25,7 +25,6 @@
 
                 <div class="row">
                     <div class="col">
-
                         <div class="h-100">
                             <div class="row mb-3 pb-1">
                                 <div class="col-12">
