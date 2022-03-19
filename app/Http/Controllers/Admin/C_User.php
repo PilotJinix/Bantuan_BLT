@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+//untuk manggil model user
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class C_User extends Controller
 {
-    function index(){
+    public function index(){
         $data_user = DB::table("users")
             ->where("role", "!=", "Super Admin")
             ->get();

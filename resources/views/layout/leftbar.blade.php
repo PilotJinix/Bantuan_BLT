@@ -43,6 +43,12 @@
                         <i class="ri-file-user-line"></i> <span data-key="t-widgets">Kelola User</span>
                     </a>
                 </li>
+                <li class="menu-title"><span data-key="t-menu" style="font-weight: bold;">Data Penerima</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route("index_penerima_admin")}}">
+                        <i class="ri-database-line"></i> <span data-key="t-widgets">Calon Penerima</span>
+                    </a>
+                </li>
                 <li class="menu-title"><span data-key="t-menu">Kriteria</span></li>
 {{--                <li class="menu-title"><span data-key="t-menu">Menu</span></li>--}}
 {{--                <li class="nav-item">--}}
