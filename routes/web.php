@@ -20,4 +20,4 @@ Route::get("/", [Main_Controller::class, "index"])->name("/");
 Route::get("user_admin", [C_User::class, "index"])->name("index_user_admin");
 Route::post("create_user_admin", [C_User::class, "create_user"])->name("create_user_admin");
 Route::post("update_user_admin/{id}", [C_User::class, "edit_user"])->name("update_user_admin");
-Route::post("delete_user_admin/{id}", [C_User::class, "delete_user"])->name("delete_user_admin");
+Route::get("delete_user_admin/{id}", [C_User::class, "delete_user"])->name("delete_user_admin");
