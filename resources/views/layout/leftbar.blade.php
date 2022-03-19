@@ -50,32 +50,42 @@
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Kriteria</span></li>
-                <li class="menu-title"><span data-key="t-menu">Example</span></li>
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarDashboards">
-                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Example</span>
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Kriteria</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarDashboards">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-analytics"> Analytics
+                                <a href="#" class="nav-link" data-key="t-analytics"> Kondisi Ekonomi
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-crm"> CRM </a>
+                                <a href="#" class="nav-link" data-key="t-crm"> Taraf Kesejahteraan </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
+                                <a href="#" class="nav-link" data-key="t-ecommerce"> Penderita Penyakit Kronis </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-crypto"> Crypto </a>
+                                <a href="#" class="nav-link" data-key="t-crypto"> Rentan Usia </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-projects"> Projects </a>
+                                <a href="#" class="nav-link" data-key="t-projects"> Kondisi Kepala Keluarga </a>
                             </li>
                         </ul>
                     </div>
+                    <li class="menu-title"><span data-key="t-menu" style="font-weight: bold;">Fuzzy AHP</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route("index_perhitungan_admin")}}">
+                        <i class="ri-calculator-line"></i> <span data-key="t-widgets">Perhitungan Fuzzy AHP</span>
+                    </a>
+                </li>
+                <li class="menu-title"><span data-key="t-menu" style="font-weight: bold;">Prioritas</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route("index_prioritas_admin")}}">
+                        <i class="ri-hand-heart-line"></i> <span data-key="t-widgets">Daftar Penerima</span>
+                    </a>
+                </li>
                 </li> <!-- end Dashboard Menu -->
 {{--                <li class="menu-title"><span data-key="t-menu">Menu</span></li>--}}
 {{--                <li class="nav-item">--}}

@@ -28,3 +28,8 @@ Route::get("penerima_admin",[C_DataPenerima::class,"index"])->name("index_peneri
 Route::post("create_penerima_admin",[C_DataPenerima::class,"create_penerima"])->name("create_penerima_admin");
 Route::post("edit_penerima_admin/{id}",[C_DataPenerima::class,"edit_penerima"])->name("edit_penerima_admin");
 Route::get("delete_penerima_admin/{id}",[C_DataPenerima::class,"delete_penerima"])->name("delete_penerima_admin");
+
+//leftbartambahanmeli
+Route::get("perhitungan_admin",[C_Perhitungan::class,"index"])->name("index_perhitungan_admin");
+//index nama method
+Route::get("prioritas_admin",[C_Prioritas::class,"index"])->name("index_prioritas_admin");
