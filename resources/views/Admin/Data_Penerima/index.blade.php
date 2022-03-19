@@ -85,7 +85,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="remove">
-                                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="{{__("#deletepengguna".$items->id)}}">Remove</button>
+                                                                <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="{{__("#deletepengguna".$items->id)}}">Hapus</button>
                                                             </div>
                                                             <div class="modal fade" id={{__('deletepengguna'.$items->id)}} tabindex="-1" role="dialog"
                                                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
