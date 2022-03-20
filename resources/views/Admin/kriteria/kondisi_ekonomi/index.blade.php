@@ -310,9 +310,12 @@
 
     <!-- init js -->
     <script>
+        import {destroy} from "../../../../../public/assets/libs/filepond/filepond.min";
+
         $(document).ready(function () {
             var data_calon = @json($data);
             console.log(data_calon);
+            $( "#autoCompleteFruit" ).autoComplete( "destroy" );
             var autoCompleteFruit = new autoComplete({
                 selector: "#autoCompleteFruit",
                 placeHolder: "Masukkan Nama Calon Penerima",
