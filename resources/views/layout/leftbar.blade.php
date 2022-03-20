@@ -57,7 +57,7 @@
                     <div class="collapse menu-dropdown" id="sidebarDashboards">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-analytics"> Kondisi Ekonomi
+                                <a href="{{route("index_kriteria_admin")}}" class="nav-link" data-key="t-analytics"> Kondisi Ekonomi
                                 </a>
                             </li>
                             <li class="nav-item">

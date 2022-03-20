@@ -19,6 +19,11 @@
     <!--Swiper slider css-->
     <link href="{{asset("assets/libs/swiper/swiper-bundle.min.css")}}" rel="stylesheet" type="text/css" />
 
+    <!-- multi.js css -->
+    <link rel="stylesheet" type="text/css" href="{{asset("assets/libs/multi.js/multi.min.css")}}" />
+    <!-- autocomplete css -->
+    <link rel="stylesheet" href="{{asset("assets/libs/%40tarekraafat/autocomplete.js/css/autoComplete.css")}}">
+
     <!-- Layout config Js -->
     <script src="{{asset("assets/js/layout.js")}}"></script>
     <!-- Bootstrap Css -->
@@ -690,6 +695,7 @@
 </div>
 
 <!-- JAVASCRIPT -->
+<script src="{{asset("assets/libs/jquery/jquery.min.js")}}"></script>
 <script src="{{asset("assets/libs/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 <script src="{{asset("assets/libs/simplebar/simplebar.min.js")}}"></script>
 <script src="{{asset("assets/libs/node-waves/waves.min.js")}}"></script>
@@ -698,6 +704,8 @@
 <script src="{{asset("assets/js/plugins.js")}}"></script>
 
 @yield("js")
+
+
 <!-- apexcharts -->
 <script src="{{asset("assets/libs/apexcharts/apexcharts.min.js")}}"></script>
 
@@ -713,6 +721,7 @@
 
 <!-- App js -->
 <script src="{{asset("assets/js/app.js")}}"></script>
+
 </body>
 
 </html>

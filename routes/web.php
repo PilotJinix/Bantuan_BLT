@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main_Controller;
 use App\Http\Controllers\Admin\C_User;
 use App\Http\Controllers\Admin\C_DataPenerima;
+use App\Http\Controllers\Admin\C_Perhitungan;
+use App\Http\Controllers\Admin\C_Prioritas;
+use App\Http\Controllers\Admin\C_Kriteria;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +25,17 @@ Route::get("user_admin", [C_User::class, "index"])->name("index_user_admin");
 Route::post("create_user_admin", [C_User::class, "create_user"])->name("create_user_admin");
 Route::post("update_user_admin/{id}", [C_User::class, "edit_user"])->name("update_user_admin");
 Route::get("delete_user_admin/{id}", [C_User::class, "delete_user"])->name("delete_user_admin");
-//buat data penerima 
+
+//buat data penerima
 Route::get("penerima_admin",[C_DataPenerima::class,"index"])->name("index_penerima_admin");
 //index nama method
 Route::post("create_penerima_admin",[C_DataPenerima::class,"create_penerima"])->name("create_penerima_admin");
 Route::post("edit_penerima_admin/{id}",[C_DataPenerima::class,"edit_penerima"])->name("edit_penerima_admin");
 Route::get("delete_penerima_admin/{id}",[C_DataPenerima::class,"delete_penerima"])->name("delete_penerima_admin");
+
+//Kondisi Ekonomi
+Route::get("kriteria_admin", [C_Kriteria::class, "index"])->name("index_kriteria_admin");
+Route::post("create_kriteria_admin", [C_Kriteria::class, "create_kriteria"])->name("create_kriteria_admin");
 
 //leftbartambahanmeli
 Route::get("perhitungan_admin",[C_Perhitungan::class,"index"])->name("index_perhitungan_admin");
