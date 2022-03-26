@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\C_DataPenerima;
 use App\Http\Controllers\Admin\C_Perhitungan;
 use App\Http\Controllers\Admin\C_Prioritas;
 use App\Http\Controllers\Admin\C_Kriteria;
+use App\Http\Controllers\Admin\C_Periode;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\Admin\C_Kriteria;
 */
 
 Route::get("/", [Main_Controller::class, "index"])->name("/");
+Route::post("create_periode", [C_Periode::class, "index"])->name("create_periode");
+Route::post("update_periode/{kode}", [C_Periode::class, "edit_periode"])->name("update_periode");
+Route::get("delete_periode/{kode}", [C_Periode::class, "delete_periode"])->name("delete_periode");
 
 Route::get("user_admin", [C_User::class, "index"])->name("index_user_admin");
 Route::post("create_user_admin", [C_User::class, "create_user"])->name("create_user_admin");

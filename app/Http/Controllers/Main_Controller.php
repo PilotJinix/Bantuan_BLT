@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Main_Controller extends Controller
 {
     public function index(){
-        return view("dashboard.index");
+        $s_periode = DB::table("data_periode")->count();
+        $s_pengguna = DB::table("users")->where("role", "!=", "Super Admin")->count();
+        $s_c_penerima = DB::table("datapenerima")->count();
+
+        $data_periode = DB::table("data_periode")->get();
+        return view("dashboard.index", compact("data_periode", "s_periode", "s_pengguna", "s_c_penerima"));
     }
 }
