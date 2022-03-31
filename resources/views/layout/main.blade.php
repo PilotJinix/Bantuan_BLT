@@ -4,7 +4,7 @@
 
 <!-- Mirrored from themes.potenzaglobalsolutions.com/html/mentor-bootstrap-4-admin-dashboard-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 19 Dec 2021 01:46:25 GMT -->
 <head>
-    <title>Mentor - Bootstrap 4 Admin Dashboard Template</title>
+    <title>SPK PENERIMA BLT-DD</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Admin template that can be used to build dashboards for CRM, CMS, etc." />
