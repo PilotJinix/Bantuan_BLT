@@ -61,7 +61,7 @@
                                                     <div class="card-body">
 
                                                         <div class="datatable-wrapper table-responsive">
-                                                            <table id="datatable" class="display compact table table-striped table-bordered">
+                                                            <table id="datatable_ke" class="display compact table table-striped table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>No</th>
@@ -155,7 +155,7 @@
                                                     <div class="card-body">
 
                                                         <div class="datatable-wrapper table-responsive">
-                                                            <table id="datatable" class="display compact table table-striped table-bordered">
+                                                            <table id="datatable_tk" class="display compact table table-striped table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>No</th>
@@ -249,7 +249,7 @@
                                                     <div class="card-body">
 
                                                         <div class="datatable-wrapper table-responsive">
-                                                            <table id="datatable" class="display compact table table-striped table-bordered">
+                                                            <table id="datatable_ppk" class="display compact table table-striped table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>No</th>
@@ -343,7 +343,7 @@
                                                     <div class="card-body">
 
                                                         <div class="datatable-wrapper table-responsive">
-                                                            <table id="datatable" class="display compact table table-striped table-bordered">
+                                                            <table id="datatable_usia" class="display compact table table-striped table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>No</th>
@@ -437,7 +437,7 @@
                                                     <div class="card-body">
 
                                                         <div class="datatable-wrapper table-responsive">
-                                                            <table id="datatable" class="display compact table table-striped table-bordered">
+                                                            <table id="datatable_kkk" class="display compact table table-striped table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>No</th>
