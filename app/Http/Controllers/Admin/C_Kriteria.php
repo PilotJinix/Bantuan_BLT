@@ -4,84 +4,103 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class C_Kriteria extends Controller
 {
-    public function index(){
+    public function index($kode){
+        $data_periode = DB::table("data_periode")
+            ->where("kode_unik", $kode)
+            ->first();
 
-        $data_user = DB::table("datapenerima")
-            ->whereRaw("nik NOT IN (select detail_data_penerima.nik from detail_data_penerima)")
+        $data_ke = DB::table("kriteria")
+            ->where([
+                "type_kriteria" =>"KE",
+                "kode_unik"=> $kode
+            ])
+            ->get();
+        $data_tk = DB::table("kriteria")
+            ->where([
+                "type_kriteria" =>"TK",
+                "kode_unik"=> $kode
+            ])
+            ->get();
+        $data_ppk = DB::table("kriteria")
+            ->where([
+                "type_kriteria" =>"PPK",
+                "kode_unik"=> $kode
+            ])
+            ->get();
+        $data_u = DB::table("kriteria")
+            ->where([
+                "type_kriteria" =>"U",
+                "kode_unik"=> $kode
+            ])
+            ->get();
+        $data_kkk = DB::table("kriteria")
+            ->where([
+                "type_kriteria" =>"KKK",
+                "kode_unik"=> $kode
+            ])
             ->get();
 
-        $data = [];
-
-        foreach ($data_user as $items){
-            $data[] = "$items->nik-$items->nama";
-        }
-
-        $detail_data_penerima = DB::table("detail_data_penerima")
-            ->leftJoin("datapenerima", "datapenerima.nik", "=", "detail_data_penerima.nik")
-            ->get();
-
-        return view("Admin.kriteria.kondisi_ekonomi.index", compact("data", "detail_data_penerima"));
+        return view("Admin.kriteria.index", compact("data_periode", "data_ke", "data_tk", "data_ppk", "data_u", "data_kkk"));
     }
 
-    public function create_kriteria(Request $request){
+    public function create_kriteria(Request $request, $kode){
+
+//        dd($kode);
         $request->validate([
-            "nama" => "required",
-            "kondisi_ekonomi" => "required",
-            "taraf_kesejahteraan" => "required",
-            "penderita_penyakit" => "required",
-            "usia" => "required",
-            "kepala_keluarga" => "required",
+            "kriteria" => "required",
+            "keterangan" => "required",
+            "bobot" => "required",
         ]);
 
         try {
-            $input["nik"] = strtok($request->nama ,"-");
-            $input["sub_ekonomi"] = $request->kondisi_ekonomi;
-            if ($request->kondisi_ekonomi == "1"){
-                $input["bobot_ekonomi"] = 50;
-            }elseif ($request->kondisi_ekonomi == "2"){
-                $input["bobot_ekonomi"] = 30;
-            }elseif ($request->kondisi_ekonomi == "3"){
-                $input["bobot_ekonomi"] = 20;
-            }
-            $input["sub_kesejahteraan"] = $request->taraf_kesejahteraan;
-            if ($request->taraf_kesejahteraan == "1"){
-                $input["bobot_kesejahteraan"] = 50;
-            }elseif ($request->taraf_kesejahteraan == "2"){
-                $input["bobot_kesejahteraan"] = 30;
-            }elseif ($request->taraf_kesejahteraan == "3"){
-                $input["bobot_kesejahteraan"] = 20;
-            }
-            $input["sub_penyakit"] = $request->penderita_penyakit;
-            if ($request->penderita_penyakit == "1"){
-                $input["bobot_penyakit"] = 30;
-            }elseif ($request->penderita_penyakit == "2"){
-                $input["bobot_penyakit"] = 70;
-            }
-            $input["sub_usia"] = $request->usia;
-            if ($request->usia == "Dewasa"){
-                $input["bobot_usia"] = 10;
-            }elseif ($request->usia == "Lansia"){
-                $input["bobot_usia"] = 35;
-            }elseif ($request->usia == "Manula"){
-                $input["bobot_usia"] = 55;
-            }
-            $input["sub_k_keluarga"] = $request->kepala_keluarga;
-            if ($request->kepala_keluarga == "Mampu Bekerja"){
-                $input["bobot_k_keluarga"] = 25;
-            }elseif ($request->kepala_keluarga == "Tidak Mampu Bekerja"){
-                $input["bobot_k_keluarga"] = 75;
-            }
+            $input["kode_unik"] = $kode;
+            $input["type_kriteria"] = $request->kriteria;
+            $input["keterangan"] = $request->keterangan;
+            $input["bobot"] = $request->bobot;
+            $input["created_at"] = Carbon::now();
+            $input["updated_at"] = Carbon::now();
 
-            DB::table("detail_data_penerima")->insert($input);
-            return redirect(route("index_kriteria_admin"));
+            DB::table("kriteria")->insert($input);
+            return redirect(route("index_kriteria_admin", $kode));
+        }catch (\Exception $exception){
+            return redirect()->back();
+        }
+    }
+
+    public function edit_kriteria(Request $request, $id){
+        $request->validate([
+            "keterangan" => "required",
+            "bobot" => "required",
+        ]);
+
+        try {
+            $input["keterangan"] = $request->keterangan;
+            $input["bobot"] = $request->bobot;
+            $input["keterangan"] = $request->keterangan;
+            $input["updated_at"] = Carbon::now();
+
+            DB::table("kriteria")
+                ->where("id", $id)
+                ->update($input);
+            return redirect()->back();
         }catch (\Exception $exception){
             return $exception;
             return redirect()->back();
+        }
+    }
+
+    public function delete_kriteria($id){
+        try {
+            DB::table("kriteria")->where("id", $id)->delete();
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return $exception;
         }
     }
 }

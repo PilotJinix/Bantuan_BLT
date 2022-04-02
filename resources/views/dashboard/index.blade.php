@@ -107,8 +107,9 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-2">
-                                                    <a href="javascript:void(0)" class="mr-2"><i class="fa fa-pencil" data-toggle="modal" data-target="{{__("#editpengguna".$items->id)}}"></i></a>
-                                                    <a href="javascript:void(0)"><i class="fa fa-trash" data-toggle="modal" data-target="{{__("#deletepengguna".$items->id)}}"></i></a>
+                                                    <a href= "{{route("index_kriteria_admin",$items->kode_unik)}}" class='btn btn-outline-primary btn-sm detail mr-2' title='Detail'><i class='fas fa fa-eye'></i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-outline-warning btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#editpengguna".$items->id)}}"><i class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm delete mr-2" data-toggle="modal" data-target="{{__("#deletepengguna".$items->id)}}"><i class="fa fa-trash" ></i></a>
 
                                                     <div class="modal fade" id="{{__('editpengguna'.$items->id)}}" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">

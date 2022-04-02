@@ -29,7 +29,7 @@
         <div class="loader">
             <div class="h-100 d-flex justify-content-center">
                 <div class="align-self-center">
-                    <img src="assets/img/loader/loader.svg" alt="loader">
+                    <img src="{{asset("assets/img/loader/loader.svg")}}" alt="loader">
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
 
                             <li class="nav-item dropdown user-profile">
                                 <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/img/avtar/02.jpg" alt="avtar-img">
+                                    <img src="{{asset("assets/img/avtar/02.jpg")}}" alt="avtar-img">
                                     <span class="bg-success user-status"></span>
                                 </a>
                                 <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
@@ -120,16 +120,7 @@
         @include("layout.leftbar")
         <!-- end app-container -->
         <!-- begin footer -->
-        <footer class="footer">
-            <div class="row">
-                <div class="col-12 col-sm-6 text-center text-sm-left">
-                    <p>&copy; Copyright 2019. All rights reserved.</p>
-                </div>
-                <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
-                    <p>Hand-crafted made with <i class="fa fa-heart text-danger mx-1"></i> by Potenza</p>
-                </div>
-            </div>
-        </footer>
+        @include("layout.footer")
         <!-- end footer -->
     </div>
     <!-- end app-wrap -->

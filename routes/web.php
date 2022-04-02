@@ -38,8 +38,11 @@ Route::post("edit_penerima_admin/{id}",[C_DataPenerima::class,"edit_penerima"])-
 Route::get("delete_penerima_admin/{id}",[C_DataPenerima::class,"delete_penerima"])->name("delete_penerima_admin");
 
 //Kondisi Ekonomi
-Route::get("kriteria_admin", [C_Kriteria::class, "index"])->name("index_kriteria_admin");
-Route::post("create_kriteria_admin", [C_Kriteria::class, "create_kriteria"])->name("create_kriteria_admin");
+Route::get("kriteria_admin/{kode}", [C_Kriteria::class, "index"])->name("index_kriteria_admin");
+Route::post("create_kriteria_admin/{kode}", [C_Kriteria::class, "create_kriteria"])->name("create_kriteria_admin");
+Route::post("update_kriteria_admin/{id}", [C_Kriteria::class, "edit_kriteria"])->name("update_kriteria_admin");
+Route::get("delete_kriteria_admin/{id}",[C_Kriteria::class,"delete_kriteria"])->name("delete_kriteria_admin");
+
 
 //leftbartambahanmeli
 Route::get("perhitungan_admin",[C_Perhitungan::class,"index"])->name("index_perhitungan_admin");
