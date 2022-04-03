@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\C_Perhitungan;
 use App\Http\Controllers\Admin\C_Prioritas;
 use App\Http\Controllers\Admin\C_Kriteria;
 use App\Http\Controllers\Admin\C_Periode;
+use App\Http\Controllers\Test\C_Test;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,19 @@ Route::get("delete_kriteria_admin/{id}",[C_Kriteria::class,"delete_kriteria"])->
 Route::get("perhitungan_admin",[C_Perhitungan::class,"index"])->name("index_perhitungan_admin");
 //index nama method
 Route::get("prioritas_admin",[C_Prioritas::class,"index"])->name("index_prioritas_admin");
+
+
+//Test
+
+
+//Skala
+Route::get("skala",[C_Test::class,"index_skala"])->name("index_skala");
+Route::post("create_skala", [C_Test::class, "create_skala"])->name("create_skala");
+Route::post("edit_skala/{id}", [C_Test::class, "edit_skala"])->name("edit_skala");
+Route::get("delete_skala/{id}", [C_Test::class, "delete_skala"])->name("delete_skala");
+
+//Kriteria
+Route::get("kriteria/{kodeskala}",[C_Test::class,"index_kriteria"])->name("index_kriteria");
+Route::post("create_kriteria/{kodeskala}", [C_Test::class, "create_kriteria"])->name("create_kriteria");
+Route::post("edit_kriteria/{id}", [C_Test::class, "edit_kriteria"])->name("edit_kriteria");
+Route::get("delete_kriteria/{id}", [C_Test::class, "delete_kriteria"])->name("delete_kriteria");

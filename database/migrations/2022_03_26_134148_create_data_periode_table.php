@@ -13,14 +13,14 @@ class CreateDataPeriodeTable extends Migration
      */
     public function up()
     {
-        Schema::create('data_periode', function (Blueprint $table) {
-            $table->id();
-            $table->string("kode_unik")->unique();
-            $table->string("nama");
-            $table->string("kuota");
-            $table->string("status")->default("0");
-            $table->timestamps();
-        });
+//        Schema::create('data_periode', function (Blueprint $table) {
+//            $table->id();
+//            $table->string("kode_unik")->unique();
+//            $table->string("nama");
+//            $table->string("kuota");
+//            $table->string("status")->default("0");
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateDataPeriodeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_periode');
+//        Schema::dropIfExists('data_periode');
     }
 }

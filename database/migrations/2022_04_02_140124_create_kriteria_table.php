@@ -13,14 +13,24 @@ class CreateKriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kriteria', function (Blueprint $table) {
-            $table->id();
-            $table->string("kode_unik")->references("kode_unik")->on("data_periode")->onDelete("cascade")->onUpdate("cascade");
-            $table->enum("type_kriteria", ["KE", "TK", "PPK", "U", "KKK"]);
-            $table->string("keterangan");
-            $table->integer("bobot");
-            $table->timestamps();
-        });
+//        Schema::create('kriteria', function (Blueprint $table) {
+//            $table->id();
+//            $table->string("kode_unik")->unique();
+//            $table->enum("type_kriteria", ["KE", "TK", "PPK", "U", "KKK"]);
+//            $table->string("keterangan");
+//            $table->integer("bobot");
+//            $table->timestamps();
+//        });
+
+        // Detail
+//        Schema::create('kriteria', function (Blueprint $table) {
+//            $table->id();
+//            $table->string("kode_unik")->references("kode_unik")->on("data_periode")->onDelete("cascade")->onUpdate("cascade");
+//            $table->enum("type_kriteria", ["KE", "TK", "PPK", "U", "KKK"]);
+//            $table->string("keterangan");
+//            $table->integer("bobot");
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -30,6 +40,6 @@ class CreateKriteriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kriteria');
+//        Schema::dropIfExists('kriteria');
     }
 }
