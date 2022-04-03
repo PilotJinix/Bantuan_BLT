@@ -69,6 +69,16 @@ class C_Test extends Controller
 
     }
 
+    public function data_kriteria(Request $request){
+        if (!is_null($request->kode_kriteria)){
+            $data = DB::table("master_kriteria")
+                ->where("kode_unik_skala", $request->kode_skala)
+                ->where("kode_unik", "!=", $request->kode_kriteria)
+                ->get();
+            return $data;
+        }
+    }
+
     public function create_kriteria(Request $request, $kode_skala){
         $request->validate([
             "nama_kriteria" => "required",
@@ -115,5 +125,48 @@ class C_Test extends Controller
         }catch (\Exception $exception){
             return $exception;
         }
+    }
+
+    // Skala Kriteria
+    public function create_skala_kriteria(Request $request, $kode){
+
+        $data_kriteria = DB::table("master_kriteria")
+            ->where("kode_unik_skala", $kode)
+            ->get();
+
+
+        try {
+
+            dd($data_kriteria);
+//            for ($i=0;$i<$data_kriteria->count();$i++){
+//                $input["kriteria_awal"] = $request->awal;
+//                $input["created_at"] = Carbon::now();
+//                $input["updated_at"] = Carbon::now();
+//                foreach ($data_kriteria as $item){
+//                    if ($request->kode_){
+//
+//                    }
+//                }
+//            }
+//
+//            foreach ($data_kriteria as $items){
+//                $input["kriteria_awal"] = $request->awal;
+//                $input["created_at"] = Carbon::now();
+//                $input["updated_at"] = Carbon::now();
+//                foreach ($data_kriteria as $item){
+//                    if ($items->kode_unik == $request->awal){
+//                        $input["kriteria_pembanding"] = $request->awal;
+//                        $input["nilai_skala"] = 1;
+//                    }else{
+//
+//                    }
+//                }
+//
+//            }
+
+        }catch (\Exception $exception){
+
+        }
+//        dd($data_skala_kriteria);
     }
 }

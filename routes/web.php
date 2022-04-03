@@ -62,6 +62,11 @@ Route::get("delete_skala/{id}", [C_Test::class, "delete_skala"])->name("delete_s
 
 //Kriteria
 Route::get("kriteria/{kodeskala}",[C_Test::class,"index_kriteria"])->name("index_kriteria");
+Route::post("data-kriteria",[C_Test::class,"data_kriteria"])->name("data_kriteria");
 Route::post("create_kriteria/{kodeskala}", [C_Test::class, "create_kriteria"])->name("create_kriteria");
 Route::post("edit_kriteria/{id}", [C_Test::class, "edit_kriteria"])->name("edit_kriteria");
 Route::get("delete_kriteria/{id}", [C_Test::class, "delete_kriteria"])->name("delete_kriteria");
+
+
+//skala kriteria
+Route::post("create_skala_kriteria/{kode}", [C_Test::class, "create_skala_kriteria"])->name("create_skala_kriteria");
