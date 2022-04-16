@@ -19,6 +19,7 @@ class CreateMasterKriteriaTable extends Migration
             $table->string("kode_unik")->unique();
             $table->string("nama_kriteria");
             $table->string("kode");
+            $table->integer("prioritas");
             $table->timestamps();
         });
     }

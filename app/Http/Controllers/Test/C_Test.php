@@ -63,7 +63,10 @@ class C_Test extends Controller
     public function index_kriteria($kode_skala){
         $data_skala = DB::table("master_skala")->where("kode_unik", $kode_skala)->first();
 
-        $data_kriteria = DB::table("master_kriteria")->where("kode_unik_skala", $kode_skala)->get();
+        $data_kriteria = DB::table("master_kriteria")
+            ->where("kode_unik_skala", $kode_skala)
+            ->orderBy("prioritas", "ASC")
+            ->get();
 
         return view("Test.skala.detail", compact("data_skala", "data_kriteria"));
 
@@ -83,6 +86,7 @@ class C_Test extends Controller
         $request->validate([
             "nama_kriteria" => "required",
             "nama_kode" => "required",
+            "prioritas" => "required",
         ]);
 
         try {
@@ -90,6 +94,7 @@ class C_Test extends Controller
             $input["kode_unik"] = Uuid::uuid1()->toString();
             $input["nama_kriteria"] = $request->nama_kriteria;
             $input["kode"] = $request->nama_kode;
+            $input["prioritas"] = $request->prioritas;
             $input["created_at"] = Carbon::now();
             $input["updated_at"] = Carbon::now();
 

@@ -36,6 +36,7 @@
                                         <th>No</th>
                                         <th>Nama Kriteria</th>
                                         <th>Kode</th>
+                                        <th>Prioritas</th>
                                         <th>Terakhir Update</th>
                                         <th>Action</th>
                                     </tr>
@@ -49,6 +50,7 @@
                                             <td>{{$i++}}</td>
                                             <td>{{$items->nama_kriteria}}</td>
                                             <td>{{$items->kode}}</td>
+                                            <td>{{$items->prioritas}}</td>
                                             <td>{{date_format(date_create($items->updated_at), "D, d F Y h:i A")}}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
@@ -150,11 +152,9 @@
                                 <table id="datatable" class="display compact table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Kriteria</th>
                                         @foreach($data_kriteria as $item_kriteria)
                                             <th>{{$item_kriteria -> nama_kriteria}}</th>
                                         @endforeach
-                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -289,6 +289,10 @@
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Nama Kode</label>
                                     <input type="text" name="nama_kode" id="customername-field" class="form-control" placeholder="Masukkan Kode" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customername-field" class="form-label">Prioritas</label>
+                                    <input type="number" min="1" name="prioritas" id="customername-field" class="form-control" placeholder="Prioritas" required />
                                 </div>
                             </div>
                             <div class="modal-footer">
