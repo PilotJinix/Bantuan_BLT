@@ -77,6 +77,7 @@ class C_Test extends Controller
             $data = DB::table("master_kriteria")
                 ->where("kode_unik_skala", $request->kode_skala)
                 ->where("kode_unik", "!=", $request->kode_kriteria)
+                ->orderBy("prioritas", "ASC")
                 ->get();
             return $data;
         }
