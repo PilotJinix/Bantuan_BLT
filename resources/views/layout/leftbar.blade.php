@@ -11,7 +11,7 @@
                 <li class="nav-static-title">Data Penerima</li>
                 <li><a href="{{route("index_penerima_admin")}}" aria-expanded="false"><i class="nav-icon ti ti-book"></i><span class="nav-title">Data Penerima</span></a></li>
 
-                <li class="nav-static-title">Test</li>
+                <li class="nav-static-title">Perhitungan F-AHP</li>
                 <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Master Skala</span></a> </li>
                 <li class="nav-static-title">Example</li>
                 <li><a href="app-chat.html" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Chat</span></a> </li>

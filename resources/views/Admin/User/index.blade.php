@@ -194,7 +194,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="phone-field" class="form-label">Nomer Telepon</label>
+                                    <label for="phone-field" class="form-lsabel">Nomer Telepon</label>
                                     <input type="text" name="no_hp" id="phone-field" minlength="11" maxlength="12" class="form-control"  placeholder="Masukkan Nomer" required />
                                 </div>
 
