@@ -159,6 +159,18 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($data_skala_kriteria as $items_skala_kriteria)
+                                        <tr>
+                                            @foreach($items_skala_kriteria as $key => $data)
+                                                @if($key == 0)
+                                                    <th>{{$data}}</th>
+                                                @else
+                                                    <td>{{$data}}</td>
+                                                @endif
+
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

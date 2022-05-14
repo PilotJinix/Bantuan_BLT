@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Array_;
 use Ramsey\Uuid\Uuid;
 
 class C_Test extends Controller
@@ -68,7 +69,29 @@ class C_Test extends Controller
             ->orderBy("prioritas", "ASC")
             ->get();
 
-        return view("Test.skala.detail", compact("data_skala", "data_kriteria"));
+        $skala_kriteria = DB::table("skala_kriteria")
+            ->select("skala_kriteria.*", "master_kriteria.nama_kriteria")
+            ->leftJoin("master_kriteria", "master_kriteria.kode_unik", "=", "skala_kriteria.kriteria_pembanding")
+//            ->groupBy("skala_kriteria.kriteria_pembanding")
+            ->get();
+
+        $data_skala_kriteria = [];
+
+        if (!is_null($skala_kriteria)){
+            foreach ($skala_kriteria as $items){
+                $colom = new \stdClass();
+                $colom->kode_unik = $items->nama_kriteria;
+                foreach ($skala_kriteria as $key1 => $items1){
+                    $colom->{$key1 + 1} = $items1->nilai_skala;
+                }
+                array_push($data_skala_kriteria, $colom);
+            }
+        }
+
+
+//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria);
+
+        return view("Test.skala.detail", compact("data_skala", "data_kriteria", "data_skala_kriteria"));
 
     }
 
@@ -140,38 +163,48 @@ class C_Test extends Controller
             ->where("kode_unik_skala", $kode)
             ->get();
 
+        $data_request = $request->toArray();
 
         try {
 
-            dd($data_kriteria);
-//            for ($i=0;$i<$data_kriteria->count();$i++){
-//                $input["kriteria_awal"] = $request->awal;
-//                $input["created_at"] = Carbon::now();
-//                $input["updated_at"] = Carbon::now();
-//                foreach ($data_kriteria as $item){
-//                    if ($request->kode_){
-//
-//                    }
-//                }
-//            }
-//
-//            foreach ($data_kriteria as $items){
-//                $input["kriteria_awal"] = $request->awal;
-//                $input["created_at"] = Carbon::now();
-//                $input["updated_at"] = Carbon::now();
-//                foreach ($data_kriteria as $item){
-//                    if ($items->kode_unik == $request->awal){
-//                        $input["kriteria_pembanding"] = $request->awal;
-//                        $input["nilai_skala"] = 1;
-//                    }else{
-//
-//                    }
-//                }
-//
-//            }
+            $data_skala_kriteria = [];
+            $data_awal = true;
+            $kriteria_awal="";
+            foreach ($data_request as $key => $items){
+                foreach ($data_kriteria as $item_kriteria){
+                    if ($data_awal == true){
+                        $document = new \stdClass();
+                        $document->kode_unik = $item_kriteria->kode_unik;
+                        $kriteria_awal = $item_kriteria->kode_unik;
+                        $document->value = "1";
+                        $data_awal = false;
+                        array_push($data_skala_kriteria, $document);
+                    }else{
+                        if ($key == $item_kriteria->kode_unik){
+                            $document = new \stdClass();
+                            $document->kode_unik = $item_kriteria->kode_unik;
+                            $document->value = $items;
+                            array_push($data_skala_kriteria, $document);
+                        }
+
+                    }
+                }
+            }
+
+            foreach ($data_skala_kriteria as $skala_kriteria){
+                $input["kriteria_awal"] = $kriteria_awal;
+                $input["kriteria_pembanding"] = $skala_kriteria->kode_unik;
+                $input["nilai_skala"] = $skala_kriteria->value;
+                $input["created_at"] = Carbon::now();
+                $input["updated_at"] = Carbon::now();
+                DB::table("skala_kriteria")->insert($input);
+            }
+            return redirect()->back();
+//            dd($data_kriteria, $data_request, $data_skala_kriteria);
+
 
         }catch (\Exception $exception){
-
+            return redirect()->back();
         }
 //        dd($data_skala_kriteria);
     }
