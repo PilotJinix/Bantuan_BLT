@@ -166,6 +166,36 @@ class C_Test extends Controller
         $data_request = $request->toArray();
 
         try {
+////            dd();
+//            $validate = true;
+//
+//            foreach ($data_request as $key => $items){
+//                if ($key != "_token"){
+//                    $cek = 0;
+//                    foreach ($data_request as $key1 => $items1){
+//                        if ($key1 != "_token"){
+//                            if ($cek <= 1){
+//                                if ($items == $items1){
+//                                    $cek += 1;
+//
+//                                }
+//                                else{
+//                                    $validate = false;
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+////            dd($validate);
+//            if ($validate == false){
+//                var_dump("false");
+////                dd('S');
+//                return false;
+//            }
+
 
             $data_skala_kriteria = [];
             $data_awal = true;
@@ -191,6 +221,7 @@ class C_Test extends Controller
                 }
             }
 
+//            dd("f");
             foreach ($data_skala_kriteria as $skala_kriteria){
                 $input["kriteria_awal"] = $kriteria_awal;
                 $input["kriteria_pembanding"] = $skala_kriteria->kode_unik;
@@ -202,8 +233,8 @@ class C_Test extends Controller
             return redirect()->back();
 //            dd($data_kriteria, $data_request, $data_skala_kriteria);
 
-
         }catch (\Exception $exception){
+//            return $exception;
             return redirect()->back();
         }
 //        dd($data_skala_kriteria);
