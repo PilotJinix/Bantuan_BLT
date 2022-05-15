@@ -13,18 +13,11 @@
 
                 <li class="nav-static-title">Perhitungan F-AHP</li>
                 <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Master Skala</span></a> </li>
-                <li class="nav-static-title">Example</li>
-                <li><a href="app-chat.html" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Chat</span></a> </li>
-                <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-calendar"></i><span class="nav-title">Calendar</span></a>
-                    <ul aria-expanded="false">
-                        <li> <a href='calendar-full.html'>Full Calendar</a> </li>
-                        <li> <a href='calendar-list.html'>Calendar List</a> </li>
-                    </ul>
                 </li>
                 <li class="sidebar-banner p-4 bg-gradient text-center m-3 d-block rounded">
-                    <h5 class="text-white mb-1">Mentor admin</h5>
-                    <p class="font-13 text-white line-20">Multipurpose Bootstrap 4 Admin Template</p>
-                    <a class="btn btn-square btn-inverse-light btn-xs d-inline-block mt-2 mb-0" href="#"> Buy now</a>
+                    <h5 class="text-white mb-1">Sistem Penunjang Keputusan</h5>
+                    <p class="font-13 text-white line-20">Bantuan Langsung Tunai Dana Desa</p>
+                    <a class="btn btn-square btn-inverse-light btn-xs d-inline-block mt-2 mb-0" href="#"> BLT-DD</a>
                 </li>
             </ul>
         </div>
