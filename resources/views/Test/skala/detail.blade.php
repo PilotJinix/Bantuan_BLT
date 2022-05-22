@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="datatable-wrapper table-responsive">
-                                <table id="datatable" class="display compact table table-striped table-bordered">
+                                <table id="datatable" class="display text-md-center compact table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th>Kriteria</th>

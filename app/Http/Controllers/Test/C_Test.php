@@ -14,6 +14,7 @@ class C_Test extends Controller
     // Skala
     public function index_skala(){
         $data_skala = DB::table("master_skala")->get();
+
         return view("Test.skala.index", compact("data_skala"));
     }
 
@@ -78,11 +79,31 @@ class C_Test extends Controller
         $data_skala_kriteria = [];
 
         if (!is_null($skala_kriteria)){
-            foreach ($skala_kriteria as $items){
+            foreach ($skala_kriteria as $key => $items){
+
                 $colom = new \stdClass();
                 $colom->kode_unik = $items->nama_kriteria;
-                foreach ($skala_kriteria as $key1 => $items1){
-                    $colom->{$key1 + 1} = $items1->nilai_skala;
+                if ($key == 0){
+                    foreach ($skala_kriteria as $key1 => $items1){
+                        $colom->{$key1 + 1} = $items1->nilai_skala;
+                    }
+                }else{
+                    foreach ($skala_kriteria as $key2 => $items2){
+
+                        if ($key <= $key2){
+
+                            if ($key2 == $key){
+                                $colom->{$key2 + 1} = "1.00";
+                            }else{
+                                var_dump($key2, $key);
+                                $colom->{$key2 + 1} = $skala_kriteria[$key2-$key]->nilai_skala;
+                            }
+                        }else{
+
+                            $colom->{$key2 + 1} = $skala_kriteria[0]->nilai_skala." / ".$skala_kriteria[$key2+1]->nilai_skala;
+                        }
+
+                    }
                 }
                 array_push($data_skala_kriteria, $colom);
             }
