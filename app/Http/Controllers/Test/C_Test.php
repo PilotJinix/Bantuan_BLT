@@ -109,7 +109,6 @@ class C_Test extends Controller
             }
         }
 
-
 //        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria);
 
         return view("Test.skala.detail", compact("data_skala", "data_kriteria", "data_skala_kriteria"));
@@ -170,7 +169,9 @@ class C_Test extends Controller
 
     public function delete_kriteria($id){
         try {
+            dd($id);
             DB::table("master_kriteria")->where("id", $id)->delete();
+            DB::table("skala_kriteria")->where("kriteria_pembanding", $id)->delete();
             return redirect()->back();
         }catch (\Exception $exception){
             return $exception;
