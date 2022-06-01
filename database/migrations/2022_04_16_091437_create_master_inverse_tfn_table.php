@@ -16,12 +16,12 @@ class CreateMasterInverseTfnTable extends Migration
         Schema::create('master_inverse_tfn', function (Blueprint $table) {
             $table->id();
             $table->string("kode_unik")->unique();
-            $table->float("l_tfn");
-            $table->float("f_tfn");
-            $table->float("n_tfn");
-            $table->float("l_reciprocal");
-            $table->float("f_reciprocal");
-            $table->float("n_reciprocal");
+            $table->double("l_tfn");
+            $table->double("f_tfn");
+            $table->double("n_tfn");
+            $table->double("l_reciprocal");
+            $table->double("f_reciprocal");
+            $table->double("n_reciprocal");
             $table->string("keterangan");
             $table->timestamps();
         });

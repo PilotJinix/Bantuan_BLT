@@ -62,6 +62,7 @@ class C_Test extends Controller
     }
 
     //  Kriteria
+
     public function index_kriteria($kode_skala){
         $data_skala = DB::table("master_skala")->where("kode_unik", $kode_skala)->first();
 
@@ -76,31 +77,66 @@ class C_Test extends Controller
 //            ->groupBy("skala_kriteria.kriteria_pembanding")
             ->get();
 
+        $master_inverse = DB::table("master_inverse_tfn")->get();
+
+//        dd($skala_kriteria);
+
+        $tfn = ["l_tfn", "f_tfn", "n_tfn"];
+        $reciprocal = ["l_reciprocal", "f_reciprocal", "n_reciprocal"];
+        $object_tfn = ["l", "f", "u"];
+
         $data_skala_kriteria = [];
+        $data_matrik_pairwaise_comparison = [];
 
         if (!is_null($skala_kriteria)){
             foreach ($skala_kriteria as $key => $items){
-
                 $colom = new \stdClass();
                 $colom->kode_unik = $items->nama_kriteria;
                 if ($key == 0){
                     foreach ($skala_kriteria as $key1 => $items1){
                         $colom->{$key1 + 1} = $items1->nilai_skala;
+
+                        $colom_matrik_pairwaise = new \stdClass();
+                        for ($i=0; $i<3 ; $i++){
+                            $colom_matrik_pairwaise->kriteria = $items1->nama_kriteria;
+                            $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[$items1->nilai_skala - 1]->{$tfn[$i]};
+                        }
+                        array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
                     }
                 }else{
                     foreach ($skala_kriteria as $key2 => $items2){
-
+                        $colom_matrik_pairwaise = new \stdClass();
                         if ($key <= $key2){
-
                             if ($key2 == $key){
                                 $colom->{$key2 + 1} = "1.00";
+
+
+                                for ($i=0; $i<3 ; $i++){
+                                    $colom_matrik_pairwaise->kriteria = $items2->nama_kriteria;
+                                    $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[0]->{$tfn[$i]};
+                                }
+                                array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
                             }else{
-                                var_dump($key2, $key);
+//                                var_dump($key2, $key);
                                 $colom->{$key2 + 1} = $skala_kriteria[$key2-$key]->nilai_skala;
+
+
+                                for ($i=0; $i<3 ; $i++){
+                                    $colom_matrik_pairwaise->kriteria = $items2->nama_kriteria;
+                                    $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[$skala_kriteria[$key2-$key]->nilai_skala-1]->{$tfn[$i]};
+                                }
+                                array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
                             }
                         }else{
+//                            dd($skala_kriteria[$key]);
+                            $colom->{$key2 + 1} = $skala_kriteria[0]->nilai_skala." / ".$skala_kriteria[$key-$key2]->nilai_skala;
 
-                            $colom->{$key2 + 1} = $skala_kriteria[0]->nilai_skala." / ".$skala_kriteria[$key2+1]->nilai_skala;
+
+                            for ($i=0; $i<3 ; $i++){
+                                $colom_matrik_pairwaise->kriteria = $items2->nama_kriteria;
+                                $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[$skala_kriteria[$key-$key2]->nilai_skala-1]->{$reciprocal[$i]};
+                            }
+                            array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
                         }
 
                     }
@@ -109,7 +145,41 @@ class C_Test extends Controller
             }
         }
 
-//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria);
+//        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
+//
+//        $fuzzy_triangular_number = [];
+//
+//
+//        foreach ($distribution_matrik as $distribution => $matrix){
+//            $l = 0;
+//            $f = 0;
+//            $u = 0;
+//            $j = new \stdClass();
+//            foreach ($matrix as $matrix2){
+//                $l += $matrix2->l;
+//                $f += $matrix2->f;
+//                $u += $matrix2->u;
+//            }
+//            $j->kriteria = $matrix[$distribution]->kriteria;
+//            $j->l = $l;
+//            $j->m = $f;
+//            $j->u = $u;
+//            array_push($fuzzy_triangular_number, $j);
+//        }
+//
+//        $total_l = 0;
+//        $total_m = 0;
+//        $total_u = 0;
+//        foreach ($fuzzy_triangular_number as $r =>  $fuzzy){
+//            $total_l += $fuzzy->l;
+//            $total_m += $fuzzy->m;
+//            $total_u += $fuzzy->u;
+//        }
+//
+//
+//
+//
+//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria, $data_matrik_pairwaise_comparison, $distribution_matrik,$fuzzy_triangular_number, $total_l, $total_m, $total_u);
 
         return view("Test.skala.detail", compact("data_skala", "data_kriteria", "data_skala_kriteria"));
 
@@ -120,6 +190,7 @@ class C_Test extends Controller
             $data = DB::table("master_kriteria")
                 ->where("kode_unik_skala", $request->kode_skala)
                 ->where("kode_unik", "!=", $request->kode_kriteria)
+                ->whereRaw("kode_unik NOT IN (select kriteria_pembanding from skala_kriteria where kriteria_awal = '$request->kode_kriteria')")
                 ->orderBy("prioritas", "ASC")
                 ->get();
             return $data;
@@ -169,9 +240,9 @@ class C_Test extends Controller
 
     public function delete_kriteria($id){
         try {
-            dd($id);
+            $skala_kritia = DB::table("master_kriteria")->where("id", $id)->first();
             DB::table("master_kriteria")->where("id", $id)->delete();
-            DB::table("skala_kriteria")->where("kriteria_pembanding", $id)->delete();
+            DB::table("skala_kriteria")->where("kriteria_pembanding", $skala_kritia->kode_unik)->delete();
             return redirect()->back();
         }catch (\Exception $exception){
             return $exception;
@@ -183,48 +254,23 @@ class C_Test extends Controller
 
         $data_kriteria = DB::table("master_kriteria")
             ->where("kode_unik_skala", $kode)
+            ->orderBy("prioritas", "ASC")
             ->get();
 
+        $data_cek_skala_skriteria = DB::table("skala_kriteria")
+            ->where("kriteria_pembanding", $data_kriteria[0]->kode_unik)
+            ->first();
+
         $data_request = $request->toArray();
+//        dd($data_request, $data_kriteria, $data_cek_skala_skriteria);
 
         try {
-////            dd();
-//            $validate = true;
-//
-//            foreach ($data_request as $key => $items){
-//                if ($key != "_token"){
-//                    $cek = 0;
-//                    foreach ($data_request as $key1 => $items1){
-//                        if ($key1 != "_token"){
-//                            if ($cek <= 1){
-//                                if ($items == $items1){
-//                                    $cek += 1;
-//
-//                                }
-//                                else{
-//                                    $validate = false;
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//
-//                }
-//            }
-////            dd($validate);
-//            if ($validate == false){
-//                var_dump("false");
-////                dd('S');
-//                return false;
-//            }
-
-
             $data_skala_kriteria = [];
             $data_awal = true;
             $kriteria_awal="";
             foreach ($data_request as $key => $items){
                 foreach ($data_kriteria as $item_kriteria){
-                    if ($data_awal == true){
+                    if ($data_awal == true and is_null($data_cek_skala_skriteria)){
                         $document = new \stdClass();
                         $document->kode_unik = $item_kriteria->kode_unik;
                         $kriteria_awal = $item_kriteria->kode_unik;
