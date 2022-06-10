@@ -54,6 +54,7 @@ class C_Test extends Controller
 
     public function delete_skala($id){
         try {
+//            dd($id);
             DB::table("master_skala")->where("id", $id)->delete();
             return redirect(route("index_skala"));
         }catch (\Exception $exception){
@@ -145,44 +146,59 @@ class C_Test extends Controller
             }
         }
 
-//        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
-//
-//        $fuzzy_triangular_number = [];
-//
-//
-//        foreach ($distribution_matrik as $distribution => $matrix){
-//            $l = 0;
-//            $f = 0;
-//            $u = 0;
-//            $j = new \stdClass();
-//            foreach ($matrix as $matrix2){
-//                $l += $matrix2->l;
-//                $f += $matrix2->f;
-//                $u += $matrix2->u;
-//            }
-//            $j->kriteria = $matrix[$distribution]->kriteria;
-//            $j->l = $l;
-//            $j->m = $f;
-//            $j->u = $u;
-//            array_push($fuzzy_triangular_number, $j);
-//        }
-//
-//        $total_l = 0;
-//        $total_m = 0;
-//        $total_u = 0;
-//        foreach ($fuzzy_triangular_number as $r =>  $fuzzy){
-//            $total_l += $fuzzy->l;
-//            $total_m += $fuzzy->m;
-//            $total_u += $fuzzy->u;
-//        }
-//
-//
-//
-//
-//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria, $data_matrik_pairwaise_comparison, $distribution_matrik,$fuzzy_triangular_number, $total_l, $total_m, $total_u);
+
+
+//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria, $data_matrik_pairwaise_comparison);
 
         return view("Test.skala.detail", compact("data_skala", "data_kriteria", "data_skala_kriteria"));
 
+    }
+
+    public function perhitungan($i, $j){
+//        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
+        $distribution_matrik = array_chunk($i, count($j));
+        $fuzzy_triangular_number = [];
+
+
+        foreach ($distribution_matrik as $distribution => $matrix){
+            $l = 0;
+            $f = 0;
+            $u = 0;
+            $j = new \stdClass();
+            foreach ($matrix as $matrix2){
+                $l += $matrix2->l;
+                $f += $matrix2->f;
+                $u += $matrix2->u;
+            }
+            $j->kriteria = $matrix[$distribution]->kriteria;
+            $j->l = $l;
+            $j->m = $f;
+            $j->u = $u;
+            array_push($fuzzy_triangular_number, $j);
+        }
+
+        $total_l = 0;
+        $total_m = 0;
+        $total_u = 0;
+        foreach ($fuzzy_triangular_number as $r =>  $fuzzy){
+            $total_l += $fuzzy->l;
+            $total_m += $fuzzy->m;
+            $total_u += $fuzzy->u;
+        }
+
+        $total_l_1 = 1 / $total_l;
+        $total_m_1 = 1 / $total_m;
+        $total_u_1 = 1 / $total_u;
+
+        $sintetis_matrix = [];
+        foreach ($fuzzy_triangular_number as $ftn){
+            $sintetis = new \stdClass();
+            $sintetis->kriteria = $ftn->kriteria;
+            $sintetis->jumlah_l = $ftn->u * $total_u_1;
+            $sintetis->jumlah_m = $ftn->m * $total_m_1;
+            $sintetis->jumlah_u = $ftn->l * $total_l_1;
+            array_push($sintetis_matrix, $sintetis);
+        }
     }
 
     public function data_kriteria(Request $request){
