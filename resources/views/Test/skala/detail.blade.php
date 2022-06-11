@@ -144,7 +144,8 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm">
                                     <div class="d-flex justify-content-sm-end">
-                                        <button type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_nilai_kriteria"><i class="ri-add-line align-bottom me-1"></i>Tambah Nilai Kriteria</button>
+                                        <button type="button" class="btn btn-success add-btn m-1" data-toggle="modal" data-target="#tambah_nilai_kriteria"><i class="ri-add-line align-bottom me-1"></i>Tambah Nilai Kriteria</button>
+                                        <button type="button" class="btn btn-warning add-btn m-1" id="perhitungan" style="display: none;"><i class="ri-add-line align-bottom me-1"></i>Perhitungan</button>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +168,6 @@
                                                 @else
                                                     <td>{{$data}}</td>
                                                 @endif
-
                                             @endforeach
                                         </tr>
                                     @endforeach
@@ -260,6 +260,7 @@
         $(document).ready(function () {
             var form = document.getElementById("perbandingan");
             var kode_skala = @json($data_skala->kode_unik);
+            console.log(kode_skala);
             var token = '{{ csrf_token() }}';
             var length;
             check();
@@ -272,6 +273,7 @@
                 }
 
                 var kode_kriteria = document.getElementById("kriteria_awal").value;
+                console.log(kode_kriteria);
                 $.ajax({
                     type: "POST",
                     url:"{{route("data_kriteria")}}",
@@ -282,13 +284,17 @@
                         '_token': token
                     },
                     success:function (data) {
+                        console.log(data);
+                        if (data.length === 0){
+                            document.getElementById('perhitungan').style.display = 'block';
+                        }
                         length = data.length;
                         for (let i = 0; i < data.length; i++){
 
                             var div = document.createElement("div");
                             div.className = "mb-3"
                             div.id = "tambahan"+i;
-                            console.log(i);
+                            // console.log(i);
                             div.innerHTML = "<label for='status-field' class='form-label'>Perbandiangan Nilai Pada Kriteria "+data[i]['nama_kriteria']+"</label><input type='text' name='"+data[i]["kode_unik"]+"' id='customername-field' class='form-control' placeholder='Masukkan "+data[i]["nama_kriteria"]+"' required />"
                             form.appendChild(div);
                         }
@@ -301,6 +307,16 @@
         });
 
 
+        $(document).on("click", function () {
+            $.ajax({
+                type: "GET",
+                url:'{{url()->current()}}',
+                dataType: "json",
+                success:function (respon) {
+                    console.log(respon);
+                }
+            })
+        })
     </script>
 @endsection
 
