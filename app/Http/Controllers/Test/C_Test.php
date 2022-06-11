@@ -54,7 +54,19 @@ class C_Test extends Controller
 
     public function delete_skala($id){
         try {
+
+            $cek_master = DB::table("master_skala")
+                ->leftJoin("master_kriteria", "master_kriteria.kode_unik_skala", "=", "master_skala.kode_unik")
+
+                ->where([
+                    "master_skala.id" => $id,
+                    "master_kriteria.prioritas" => '1'
+                ])->first();
+
+//            dd($cek_master);
             DB::table("master_skala")->where("id", $id)->delete();
+            DB::table("master_kriteria")->where("kode_unik_skala", $cek_master->kode_unik_skala)->delete();
+            DB::table("skala_kriteria")->where("kriteria_awal", $cek_master->kode_unik)->delete();
             return redirect(route("index_skala"));
         }catch (\Exception $exception){
             return $exception;
@@ -63,7 +75,7 @@ class C_Test extends Controller
 
     //  Kriteria
 
-    public function index_kriteria($kode_skala){
+    public function index_kriteria(Request $request,$kode_skala){
         $data_skala = DB::table("master_skala")->where("kode_unik", $kode_skala)->first();
 
         $data_kriteria = DB::table("master_kriteria")
@@ -88,10 +100,16 @@ class C_Test extends Controller
         $data_skala_kriteria = [];
         $data_matrik_pairwaise_comparison = [];
 
+//        dd($skala_kriteria);
         if (!is_null($skala_kriteria)){
             foreach ($skala_kriteria as $key => $items){
                 $colom = new \stdClass();
+                //Original
                 $colom->kode_unik = $items->nama_kriteria;
+                //End
+
+//                $colom->nama_kriteria = $items->nama_kriteria;
+//                $colom->kode_unik = $items->kriteria_pembanding;
                 if ($key == 0){
                     foreach ($skala_kriteria as $key1 => $items1){
                         $colom->{$key1 + 1} = $items1->nilai_skala;
@@ -99,6 +117,7 @@ class C_Test extends Controller
                         $colom_matrik_pairwaise = new \stdClass();
                         for ($i=0; $i<3 ; $i++){
                             $colom_matrik_pairwaise->kriteria = $items1->nama_kriteria;
+                            $colom_matrik_pairwaise->kode_kriteria = $items1->kriteria_pembanding;
                             $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[$items1->nilai_skala - 1]->{$tfn[$i]};
                         }
                         array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
@@ -113,6 +132,7 @@ class C_Test extends Controller
 
                                 for ($i=0; $i<3 ; $i++){
                                     $colom_matrik_pairwaise->kriteria = $items2->nama_kriteria;
+                                    $colom_matrik_pairwaise->kode_kriteria = $items2->kriteria_pembanding;
                                     $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[0]->{$tfn[$i]};
                                 }
                                 array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
@@ -123,6 +143,7 @@ class C_Test extends Controller
 
                                 for ($i=0; $i<3 ; $i++){
                                     $colom_matrik_pairwaise->kriteria = $items2->nama_kriteria;
+                                    $colom_matrik_pairwaise->kode_kriteria = $items2->kriteria_pembanding;
                                     $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[$skala_kriteria[$key2-$key]->nilai_skala-1]->{$tfn[$i]};
                                 }
                                 array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
@@ -134,6 +155,7 @@ class C_Test extends Controller
 
                             for ($i=0; $i<3 ; $i++){
                                 $colom_matrik_pairwaise->kriteria = $items2->nama_kriteria;
+                                $colom_matrik_pairwaise->kode_kriteria = $items2->kriteria_pembanding;
                                 $colom_matrik_pairwaise->{$object_tfn[$i]} = $master_inverse[$skala_kriteria[$key-$key2]->nilai_skala-1]->{$reciprocal[$i]};
                             }
                             array_push($data_matrik_pairwaise_comparison, $colom_matrik_pairwaise);
@@ -145,8 +167,10 @@ class C_Test extends Controller
             }
         }
 
+
+
+//        // Method Perhitungan
 //        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
-//
 //        $fuzzy_triangular_number = [];
 //
 //
@@ -161,6 +185,7 @@ class C_Test extends Controller
 //                $u += $matrix2->u;
 //            }
 //            $j->kriteria = $matrix[$distribution]->kriteria;
+//            $j->kode_kriteria = $matrix[$distribution]->kode_kriteria;
 //            $j->l = $l;
 //            $j->m = $f;
 //            $j->u = $u;
@@ -176,13 +201,102 @@ class C_Test extends Controller
 //            $total_u += $fuzzy->u;
 //        }
 //
+//        $total_l_1 = 1 / $total_l;
+//        $total_m_1 = 1 / $total_m;
+//        $total_u_1 = 1 / $total_u;
 //
+//        $sintetis_matrix = [];
+//        foreach ($fuzzy_triangular_number as $ftn){
+//            $sintetis = new \stdClass();
+//            $sintetis->kriteria = $ftn->kriteria;
+//            $sintetis->kode_kriteria = $ftn->kode_kriteria;
+//            $sintetis->jumlah_l = $ftn->u * $total_u_1;
+//            $sintetis->jumlah_m = $ftn->m * $total_m_1;
+//            $sintetis->jumlah_u = $ftn->l * $total_l_1;
+//            array_push($sintetis_matrix, $sintetis);
+//        }
 //
+//        dd($distribution_matrik, $fuzzy_triangular_number, $sintetis_matrix);
 //
-//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria, $data_matrik_pairwaise_comparison, $distribution_matrik,$fuzzy_triangular_number, $total_l, $total_m, $total_u);
+//        // END Method Perhitungan
+
+
+
+
+
+        if ($request->ajax()){
+            $perhitungan = $this->perhitungan($data_matrik_pairwaise_comparison, $data_kriteria);
+
+            return $perhitungan;
+        }
+
+
+
+//
+//        dd($perhitungan);
+
+//        dd($data_kriteria, $skala_kriteria, $data_skala_kriteria, $data_matrik_pairwaise_comparison);
 
         return view("Test.skala.detail", compact("data_skala", "data_kriteria", "data_skala_kriteria"));
 
+    }
+
+    public function perhitungan($i, $j){
+//        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
+        $distribution_matrik = array_chunk($i, count($j));
+        $fuzzy_triangular_number = [];
+
+
+        foreach ($distribution_matrik as $distribution => $matrix){
+            $l = 0;
+            $f = 0;
+            $u = 0;
+            $j = new \stdClass();
+            foreach ($matrix as $matrix2){
+                $l += $matrix2->l;
+                $f += $matrix2->f;
+                $u += $matrix2->u;
+            }
+            $j->kriteria = $matrix[$distribution]->kriteria;
+            $j->kode_kriteria = $matrix[$distribution]->kode_kriteria;
+            $j->l = $l;
+            $j->m = $f;
+            $j->u = $u;
+            array_push($fuzzy_triangular_number, $j);
+        }
+
+        $total_l = 0;
+        $total_m = 0;
+        $total_u = 0;
+        foreach ($fuzzy_triangular_number as $r =>  $fuzzy){
+            $total_l += $fuzzy->l;
+            $total_m += $fuzzy->m;
+            $total_u += $fuzzy->u;
+        }
+
+        $total_l_1 = 1 / $total_l;
+        $total_m_1 = 1 / $total_m;
+        $total_u_1 = 1 / $total_u;
+
+        $sintetis_matrix = [];
+        foreach ($fuzzy_triangular_number as $ftn){
+            $sintetis = new \stdClass();
+            $sintetis->kriteria = $ftn->kriteria;
+            $sintetis->kode_kriteria = $ftn->kode_kriteria;
+            $sintetis->jumlah_l = $ftn->u * $total_u_1;
+            $sintetis->jumlah_m = $ftn->m * $total_m_1;
+            $sintetis->jumlah_u = $ftn->l * $total_l_1;
+            array_push($sintetis_matrix, $sintetis);
+        }
+        return response()->json([
+            "FTN" => $fuzzy_triangular_number,
+            "total_l" => $total_l_1,
+            "total_m" => $total_m_1,
+            "total_u" => $total_u_1,
+            "sintetis_matrix" => $sintetis_matrix
+        ]);
+
+//        return [$fuzzy_triangular_number, $total_l_1, $total_m_1, $total_u_1, $sintetis_matrix];
     }
 
     public function data_kriteria(Request $request){
@@ -289,9 +403,11 @@ class C_Test extends Controller
                 }
             }
 
+//            dd($data_kriteria);
+
 //            dd("f");
             foreach ($data_skala_kriteria as $skala_kriteria){
-                $input["kriteria_awal"] = $kriteria_awal;
+                $input["kriteria_awal"] = $kriteria_awal != ""? $kriteria_awal : $data_kriteria[0]->kode_unik ;
                 $input["kriteria_pembanding"] = $skala_kriteria->kode_unik;
                 $input["nilai_skala"] = $skala_kriteria->value;
                 $input["created_at"] = Carbon::now();
