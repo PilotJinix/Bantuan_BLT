@@ -179,6 +179,41 @@
                 </div>
             </div>
 
+            <div class="row" style="display: block;">
+                <div class="col-lg-12">
+                    <div class="card card-statistics">
+                        <div class="card-body">
+
+                            <div class="row g-4 mb-3">
+                                <div class="col-sm">
+                                    <div class="d-flex justify-content-sm-start">
+                                        <h3>Normalisasi</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="datatable-wrapper table-responsive">
+                                <table id="dt_normalisasi" class="display text-md-center compact table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Kriteria</th>
+                                        <th>Nilai Kriteria</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="tambah_nilai_kriteria" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -308,6 +343,65 @@
 
 
         $(document).on("click", function () {
+            {{--var my_columns = [];--}}
+            {{--var dataSet =[];--}}
+
+            {{--$.ajax({--}}
+            {{--    type: "GET",--}}
+            {{--    url:  "{{url()->current()}}",--}}
+            {{--    datatype:'json',--}}
+            {{--    cache: false,--}}
+            {{--    success: function(response){--}}
+            {{--        console.log(response)--}}
+            {{--        dataSet = response;--}}
+            {{--        //instead of "dataSet=response;"--}}
+
+            {{--        $('#dt_normalisasi').DataTable({--}}
+            {{--            'bInfo'  : false,--}}
+            {{--            'paging' : false,--}}
+            {{--            'scrollX': false,--}}
+            {{--            'processing':false,--}}
+            {{--            'sDom'   : 'ltipr',--}}
+            {{--            'data'   : dataSet,--}}
+            {{--            "columns": [--}}
+            {{--                {--}}
+            {{--                    "data" :null, "sortable": false,--}}
+            {{--                    "searchable":false,--}}
+            {{--                    render : function (data, type, row, meta) {--}}
+            {{--                        return meta.row + meta.settings._iDisplayStart + 1--}}
+            {{--                    }--}}
+            {{--                },--}}
+            {{--                { data: response['nama_kriteria']},--}}
+            {{--                { data: response['result']}--}}
+            {{--            ]--}}
+            {{--        });--}}
+            {{--    }--}}
+            {{--});--}}
+            {{--console.log(my_columns);--}}
+
+            {{--console.log(dataSet);--}}
+
+            {{--$('#dt_normalisasi').DataTable({--}}
+            {{--    'bInfo'  : false,--}}
+            {{--    'paging' : false,--}}
+            {{--    'scrollX': false,--}}
+            {{--    'processing':false,--}}
+            {{--    'sDom'   : 'ltipr',--}}
+            {{--    'data'   : dataSet,--}}
+            {{--    "columns": [--}}
+            {{--        {--}}
+            {{--            "data" :null, "sortable": false,--}}
+            {{--            "searchable":false,--}}
+            {{--            render : function (data, type, row, meta) {--}}
+            {{--                return meta.row + meta.settings._iDisplayStart + 1--}}
+            {{--            }--}}
+            {{--        },--}}
+            {{--        { data: 'nama_kriteria'},--}}
+            {{--        { data: 'result'}--}}
+            {{--    ]--}}
+            {{--});--}}
+
+
             $.ajax({
                 type: "GET",
                 url:'{{url()->current()}}',
