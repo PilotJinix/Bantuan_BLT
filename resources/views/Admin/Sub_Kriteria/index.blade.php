@@ -9,7 +9,7 @@
                     <!-- begin page title -->
                     <div class="d-block d-sm-flex flex-nowrap align-items-center">
                         <div class="page-title mb-2 mb-sm-0">
-                            <h1>Daftar Kriteria Dengan Skala {{$data_skala->versi}}</h1>
+                            <h1>Daftar Sub Kriteria Dengan Kriteria {{$data_kriteria->nama_kriteria}} </h1>
                         </div>
                     </div>
                     <!-- end page title -->
@@ -45,16 +45,16 @@
                                     @php
                                         $i = 1;
                                     @endphp
-                                    @foreach($data_kriteria as $items)
+                                    @foreach($data_sub_kriteria as $items)
                                         <tr>
                                             <td>{{$i++}}</td>
-                                            <td>{{$items->nama_kriteria}}</td>
-                                            <td>{{$items->kode}}</td>
-                                            <td>{{$items->prioritas}}</td>
+                                            <td>{{$items->nama_sub_kriteria}}</td>
+                                            <td>{{$items->kode_sub}}</td>
+                                            <td>{{$items->prioritas_sub}}</td>
                                             <td>{{date_format(date_create($items->updated_at), "D, d F Y h:i A")}}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
-                                                    <a href= "{{route("index_sub_kriteria", $items->kode_unik)}}" class='btn btn-outline-primary btn-sm detail mr-2' title='Detail'><i class='fas fa fa-eye'></i></a>
+{{--                                                    <a href= "#" class='btn btn-outline-primary btn-sm detail mr-2' title='Detail'><i class='fas fa fa-eye'></i></a>--}}
                                                     <a href="javascript:void(0)" class="btn btn-outline-warning btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#editpengguna".$items->id)}}"><i class="fa fa-pencil"></i></a>
                                                     <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm delete mr-2" data-toggle="modal" data-target="{{__("#deletepengguna".$items->id)}}"><i class="fa fa-trash" ></i></a>
 
@@ -72,11 +72,11 @@
                                                                     <div class="modal-body">
                                                                         <div class="mb-3">
                                                                             <label for="customername-field" class="form-label">Nama Kriteria</label>
-                                                                            <input type="text" value="{{$items->nama_kriteria}}" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Kriteria" required />
+                                                                            <input type="text" value="{{$items->nama_sub_kriteria}}" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Kriteria" required />
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="customername-field" class="form-label">Nama Kode</label>
-                                                                            <input type="text" value="{{$items->kode}}" name="nama_kode" id="customername-field" class="form-control" placeholder="Masukkan Kode" required />
+                                                                            <input type="text" value="{{$items->kode_sub}}" name="nama_kode" id="customername-field" class="form-control" placeholder="Masukkan Kode" required />
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -98,7 +98,7 @@
                                                                     <div style="text-align: center;">
                                                                         <i class="fa fa-warning"
                                                                            style="font-size: 100px; color: orange"></i>
-                                                                        <p>Semua data <strong>{{$items->nama_kriteria}}</strong> akan dihapus!!</p>
+                                                                        <p>Semua data <strong>{{$items->nama_sub_kriteria}}</strong> akan dihapus!!</p>
                                                                     </div>
 
                                                                 </div>
@@ -155,13 +155,13 @@
                                     <thead>
                                     <tr>
                                         <th>Kriteria</th>
-                                        @foreach($data_kriteria as $item_kriteria)
-                                            <th>{{$item_kriteria -> nama_kriteria}}</th>
+                                        @foreach($data_sub_kriteria as $item_kriteria)
+                                            <th>{{$item_kriteria -> nama_sub_kriteria}}</th>
                                         @endforeach
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data_skala_kriteria as $items_skala_kriteria)
+                                    @foreach($data_skala_sub_kriteria as $items_skala_kriteria)
                                         <tr>
                                             @foreach($items_skala_kriteria as $key => $data)
                                                 @if($key == 0)
@@ -217,7 +217,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="POST" enctype="multipart/form-data" action="{{route("create_skala_kriteria", $data_skala->kode_unik)}}">
+                        <form method="POST" enctype="multipart/form-data" action="{{route("create_skala_sub_kriteria", $data_kriteria->kode_unik)}}">
                             @csrf
                             <div class="modal-body" id="perbandingan">
 
@@ -225,9 +225,9 @@
                                     <label for="status-field" class="form-label">Kriteria Awal</label>
                                     <select class="form-control" data-trigger name="awal" id="kriteria_awal" disabled>
                                         <option selected disabled>Pilih Kriteria Awal</option>
-                                        @foreach($data_kriteria as $data)
-                                            @if($data->prioritas == "1")
-                                                <option value="{{$data->kode_unik}}" {{$data->prioritas == "1" ? "selected" : ""}} >{{$data->nama_kriteria}}</option>
+                                        @foreach($data_sub_kriteria as $data)
+                                            @if($data->prioritas_sub == "1")
+                                                <option value="{{$data->kode_unik}}" {{$data->prioritas_sub == "1" ? "selected" : ""}} >{{$data->nama_sub_kriteria}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -252,20 +252,20 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="POST" enctype="multipart/form-data" action="{{route("create_kriteria", $data_skala->kode_unik)}}">
+                        <form method="POST" enctype="multipart/form-data" action="{{route("create_sub_kriteria", $data_kriteria->kode_unik)}}">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Nama Kriteria</label>
-                                    <input type="text" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Kriteria" required />
+                                    <input type="text" name="nama_sub_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Sub Kriteria" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Nama Kode</label>
-                                    <input type="text" name="nama_kode" id="customername-field" class="form-control" placeholder="Masukkan Kode" required />
+                                    <input type="text" name="nama_sub_kode" id="customername-field" class="form-control" placeholder="Masukkan Sub Kode" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Prioritas</label>
-                                    <input type="number" min="1" name="prioritas" id="customername-field" class="form-control" placeholder="Prioritas" required />
+                                    <input type="number" min="1" name="prioritas_sub" id="customername-field" class="form-control" placeholder="Prioritas Sub" required />
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -288,7 +288,7 @@
     <script>
         $(document).ready(function () {
             var form = document.getElementById("perbandingan");
-            var kode_skala = @json($data_skala->kode_unik);
+            var kode_skala = @json($data_kriteria->kode_unik);
 
             var token = '{{ csrf_token() }}';
             var length;
@@ -303,7 +303,7 @@
                 var kode_kriteria = document.getElementById("kriteria_awal").value;
                 $.ajax({
                     type: "POST",
-                    url:"{{route("data_kriteria")}}",
+                    url:"{{route("data_sub_kriteria")}}",
                     dataType: "json",
                     data:{
                         "kode_skala":kode_skala,
@@ -321,7 +321,7 @@
                             div.className = "mb-3"
                             div.id = "tambahan"+i;
                             // console.log(i);
-                            div.innerHTML = "<label for='status-field' class='form-label'>Perbandiangan Nilai Pada Kriteria "+data[i]['nama_kriteria']+"</label><input type='text' name='"+data[i]["kode_unik"]+"' id='customername-field' class='form-control' placeholder='Masukkan "+data[i]["nama_kriteria"]+"' required />"
+                            div.innerHTML = "<label for='status-field' class='form-label'>Perbandiangan Nilai Pada Kriteria "+data[i]['nama_sub_kriteria']+"</label><input type='text' name='"+data[i]["kode_unik"]+"' id='customername-field' class='form-control' placeholder='Masukkan "+data[i]["nama_sub_kriteria"]+"' required />"
                             form.appendChild(div);
                         }
                     },
@@ -332,66 +332,66 @@
             }
         });
 
-        $('#perhitungan').on("click", function () {
-            $("#dt_normalisasi").DataTable({
-                scrollX: true,
-                dom: 'Bfrtip',
-                sortable: false,
-                ordering: false,
-                processing: true,
-                serverSide: true,
-                order: [[0, 'desc']],
-                ajax: {
-                    url:'{{url()->current()}}',
-                },
+        {{--$('#perhitungan').on("click", function () {--}}
+        {{--    $("#dt_normalisasi").DataTable({--}}
+        {{--        scrollX: true,--}}
+        {{--        dom: 'Bfrtip',--}}
+        {{--        sortable: false,--}}
+        {{--        ordering: false,--}}
+        {{--        processing: true,--}}
+        {{--        serverSide: true,--}}
+        {{--        order: [[0, 'desc']],--}}
+        {{--        ajax: {--}}
+        {{--            url:'{{url()->current()}}',--}}
+        {{--        },--}}
 
-                columns: [
-                    {
-                        "data" :null, "sortable": false,
-                        "searchable":false,
-                        render : function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1
-                        }
-                    },
-                    { data: 'nama_kriteria', name: 'nama_kriteria'},
-                    { data: 'result', name: 'result'}
-                ]
-            })
-            {{--$('#dt_progres').DataTable({--}}
-            {{--    searching: false,--}}
-            {{--    processing: true,--}}
-            {{--    serverSide: true,--}}
-            {{--    ajax: {--}}
-            {{--        url : '{{route("test_tap")}}',--}}
-            {{--        data: {data:'all'}--}}
-            {{--    },--}}
-            {{--    columns: [--}}
-            {{--        {--}}
-            {{--            "data" :null, "sortable": false,--}}
-            {{--            render : function (data, type, row, meta) {--}}
-            {{--                return meta.row + meta.settings._iDisplayStart + 1--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        { data: 'nama_aplikasi', name: 'nama_aplikasi' },--}}
-            {{--        { data: 'type', name: 'type' },--}}
-            {{--        { data: 'alamat_subdomain', name: 'alamat_subdomain' },--}}
-            {{--        { data: 'dbms', name: 'dbms' },--}}
-            {{--        { data: 'status', name: 'status' },--}}
-            {{--        { data: 'pic', name: 'pic' },--}}
-            {{--        { data: 'action', name: 'action' },--}}
-            {{--        { data: 'update', name: 'update' },--}}
-            {{--    ]--}}
-            {{--});--}}
+        {{--        columns: [--}}
+        {{--            {--}}
+        {{--                "data" :null, "sortable": false,--}}
+        {{--                "searchable":false,--}}
+        {{--                render : function (data, type, row, meta) {--}}
+        {{--                    return meta.row + meta.settings._iDisplayStart + 1--}}
+        {{--                }--}}
+        {{--            },--}}
+        {{--            { data: 'nama_kriteria', name: 'nama_kriteria'},--}}
+        {{--            { data: 'result', name: 'result'}--}}
+        {{--        ]--}}
+        {{--    })--}}
+        {{--    $('#dt_progres').DataTable({--}}
+        {{--        searching: false,--}}
+        {{--        processing: true,--}}
+        {{--        serverSide: true,--}}
+        {{--        ajax: {--}}
+        {{--            url : '{{route("test_tap")}}',--}}
+        {{--            data: {data:'all'}--}}
+        {{--        },--}}
+        {{--        columns: [--}}
+        {{--            {--}}
+        {{--                "data" :null, "sortable": false,--}}
+        {{--                render : function (data, type, row, meta) {--}}
+        {{--                    return meta.row + meta.settings._iDisplayStart + 1--}}
+        {{--                }--}}
+        {{--            },--}}
+        {{--            { data: 'nama_aplikasi', name: 'nama_aplikasi' },--}}
+        {{--            { data: 'type', name: 'type' },--}}
+        {{--            { data: 'alamat_subdomain', name: 'alamat_subdomain' },--}}
+        {{--            { data: 'dbms', name: 'dbms' },--}}
+        {{--            { data: 'status', name: 'status' },--}}
+        {{--            { data: 'pic', name: 'pic' },--}}
+        {{--            { data: 'action', name: 'action' },--}}
+        {{--            { data: 'update', name: 'update' },--}}
+        {{--        ]--}}
+        {{--    });--}}
 
-            {{--$.ajax({--}}
-            {{--    type: "GET",--}}
-            {{--    url:'{{url()->current()}}',--}}
-            {{--    dataType: "json",--}}
-            {{--    success:function (respon) {--}}
-            {{--        console.log(respon);--}}
-            {{--    }--}}
-            {{--})--}}
-        })
+        {{--    $.ajax({--}}
+        {{--        type: "GET",--}}
+        {{--        url:'{{url()->current()}}',--}}
+        {{--        dataType: "json",--}}
+        {{--        success:function (respon) {--}}
+        {{--            console.log(respon);--}}
+        {{--        }--}}
+        {{--    })--}}
+        {{--})--}}
     </script>
 @endsection
 

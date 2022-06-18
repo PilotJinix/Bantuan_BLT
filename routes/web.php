@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\C_Prioritas;
 use App\Http\Controllers\Admin\C_Kriteria;
 use App\Http\Controllers\Admin\C_Periode;
 use App\Http\Controllers\Test\C_Test;
+use App\Http\Controllers\Test\C_SubKriteria;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +71,12 @@ Route::get("delete_kriteria/{kode}", [C_Test::class, "delete_kriteria"])->name("
 
 //skala kriteria
 Route::post("create_skala_kriteria/{kode}", [C_Test::class, "create_skala_kriteria"])->name("create_skala_kriteria");
+
+
+// Sub Kriteria
+Route::get("sub_kriteria/{kodekriteria}",[C_SubKriteria::class,"index"])->name("index_sub_kriteria");
+Route::post("data-sub-kriteria",[C_SubKriteria::class,"data_sub_kriteria"])->name("data_sub_kriteria");
+Route::post("create_sub_kriteria/{kodeunik}", [C_SubKriteria::class, "create_sub_kriteria"])->name("create_sub_kriteria");
+
+//skala Sub kriteria
+Route::post("create_skala_sub_kriteria/{kode}", [C_SubKriteria::class, "create_skala_sub_kriteria"])->name("create_skala_sub_kriteria");
