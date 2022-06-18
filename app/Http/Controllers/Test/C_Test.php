@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Test;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Array_;
 use Ramsey\Uuid\Uuid;
+use Yajra\DataTables\DataTables;
 
 class C_Test extends Controller
 {
@@ -287,14 +289,17 @@ class C_Test extends Controller
 //
 //        // END Method Perhitungan
 
-
-
+//        $perhitungan = collect($this->perhitungan($data_matrik_pairwaise_comparison, $data_kriteria));
+//
+//        dd($perhitungan);
 
 
         if ($request->ajax()){
-            $perhitungan = $this->perhitungan($data_matrik_pairwaise_comparison, $data_kriteria);
+            $perhitungan = collect($this->perhitungan($data_matrik_pairwaise_comparison, $data_kriteria));
 
-            return $perhitungan;
+            $data = DataTables::of($perhitungan)
+                ->make(true);
+            return $data;
         }
 
 
