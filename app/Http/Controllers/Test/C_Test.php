@@ -85,11 +85,20 @@ class C_Test extends Controller
             ->orderBy("prioritas", "ASC")
             ->get();
 
+        $data_cek = DB::table("master_kriteria")
+            ->where("kode_unik_skala", $kode_skala)
+            ->where("prioritas", "1")
+            ->first();
+
         $skala_kriteria = DB::table("skala_kriteria")
             ->select("skala_kriteria.*", "master_kriteria.nama_kriteria")
             ->leftJoin("master_kriteria", "master_kriteria.kode_unik", "=", "skala_kriteria.kriteria_pembanding")
+
 //            ->groupBy("skala_kriteria.kriteria_pembanding")
             ->get();
+
+
+
 
         $master_inverse = DB::table("master_inverse_tfn")->get();
 
