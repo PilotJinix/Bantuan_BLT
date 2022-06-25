@@ -66,7 +66,7 @@ class DataInverseSeeder extends Seeder
                 "f_tfn" => 2.000,
                 "n_tfn" => 2.500,
                 "l_reciprocal" => 0.400,
-                "f_reciprocal" => 1.500,
+                "f_reciprocal" => 0.500,
                 "n_reciprocal" => 0.667,
                 "keterangan" => "Intermediate",
                 "created_at" => $created_at,
