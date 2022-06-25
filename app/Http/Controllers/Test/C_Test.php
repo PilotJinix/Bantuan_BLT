@@ -80,20 +80,21 @@ class C_Test extends Controller
     public function index_kriteria(Request $request,$kode_skala){
         $data_skala = DB::table("master_skala")->where("kode_unik", $kode_skala)->first();
 
-        $data_kriteria = DB::table("master_kriteria")
-            ->where("kode_unik_skala", $kode_skala)
-            ->orderBy("prioritas", "ASC")
-            ->get();
-
         $data_cek = DB::table("master_kriteria")
             ->where("kode_unik_skala", $kode_skala)
             ->where("prioritas", "1")
             ->first();
 
+        $data_kriteria = DB::table("master_kriteria")
+            ->where("kode_unik_skala", $kode_skala)
+            ->orderBy("prioritas", "ASC")
+            ->get();
+
         $skala_kriteria = DB::table("skala_kriteria")
             ->select("skala_kriteria.*", "master_kriteria.nama_kriteria")
             ->leftJoin("master_kriteria", "master_kriteria.kode_unik", "=", "skala_kriteria.kriteria_pembanding")
-
+            ->whereraw("kriteria_awal in (select kode_unik from master_kriteria where kode_unik_skala = '{$kode_skala}')" )
+            ->orderBy('master_kriteria.prioritas', 'ASC')
 //            ->groupBy("skala_kriteria.kriteria_pembanding")
             ->get();
 
@@ -182,125 +183,10 @@ class C_Test extends Controller
 
 //        // Method Perhitungan
 //        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
-//        $fuzzy_triangular_number = [];
-//
-//
-//        foreach ($distribution_matrik as $distribution => $matrix){
-//            $l = 0;
-//            $f = 0;
-//            $u = 0;
-//            $j = new \stdClass();
-//            foreach ($matrix as $matrix2){
-//                $l += $matrix2->l;
-//                $f += $matrix2->f;
-//                $u += $matrix2->u;
-//            }
-//            $j->kriteria = $matrix[$distribution]->kriteria;
-//            $j->kode_kriteria = $matrix[$distribution]->kode_kriteria;
-//            $j->l = $l;
-//            $j->m = $f;
-//            $j->u = $u;
-//            array_push($fuzzy_triangular_number, $j);
-//        }
-//
-//        $total_l = 0;
-//        $total_m = 0;
-//        $total_u = 0;
-//        foreach ($fuzzy_triangular_number as $r =>  $fuzzy){
-//            $total_l += $fuzzy->l;
-//            $total_m += $fuzzy->m;
-//            $total_u += $fuzzy->u;
-//        }
-//
-//        $total_l_1 = 1 / $total_l;
-//        $total_m_1 = 1 / $total_m;
-//        $total_u_1 = 1 / $total_u;
-//
-//        $sintetis_matrix = [];
-//        foreach ($fuzzy_triangular_number as $ftn){
-//            $sintetis = new \stdClass();
-//            $sintetis->kriteria = $ftn->kriteria;
-//            $sintetis->kode_kriteria = $ftn->kode_kriteria;
-//            $sintetis->jumlah_l = $ftn->u * $total_u_1;
-//            $sintetis->jumlah_m = $ftn->m * $total_m_1;
-//            $sintetis->jumlah_u = $ftn->l * $total_l_1;
-//            array_push($sintetis_matrix, $sintetis);
-//        }
-//
-//        $DEFUZZIFIKASI =[];
-//        $Nilai_Bobot_Fuzzy = [];
-//
-//        foreach ($sintetis_matrix as $key => $def){
-//            $temp_bobot_fuzzy = new \stdClass();
-//            $temp = [];
-//
-//            foreach ($sintetis_matrix as $def2){
-//                $temp_def = new \stdClass();
-//                $temp_def->nama_kriteria = $def->kriteria;
-//                $temp_def->kode_kriteria = $def->kode_kriteria;
-//                if ($key == 0){
-//                    if ($def->kode_kriteria != $def2->kode_kriteria){
-//                        $temp_def->nama_kriteria_pembanding = $def2->kriteria;
-//                        $temp_def->kode_kriteria_pembanding = $def2->kode_kriteria;
-//                        $temp_def->nilai_acuan = 1;
-//                        array_push($temp, $temp_def);
-//                    }
-//                }else{
-//                    if ($def->kode_kriteria != $def2->kode_kriteria){
-//                        $temp_def->nama_kriteria_pembanding = $def2->kriteria;
-//                        $temp_def->kode_kriteria_pembanding = $def2->kode_kriteria;
-//                        if ($def->jumlah_m >= $def2->jumlah_m){
-//                            $temp_def->nilai_acuan = 1;
-//                        }elseif ($def->jumlah_l >= $def2->jumlah_u){
-//                            $temp_def->nilai_acuan = 0;
-//                        }else{
-//
-//                            $q = $this->format_number($def2->jumlah_l, 4) - $this->format_number($def->jumlah_u, 4);
-//                            $w = $this->format_number($def->jumlah_m, 4) - $this->format_number($def->jumlah_u, 4);
-//                            $e = $this->format_number($def2->jumlah_m, 4) - $this->format_number($def2->jumlah_l, 4);
-//                            $r = $w - $e;
-//                            $t = $this->format_number($q / $r, 4);
-//
-////                            dd($sintetis_matrix, $def2->jumlah_l, $def->jumlah_u, $def->jumlah_m, $def->jumlah_u, $def2->jumlah_m, $def2->jumlah_l);
-//                            $temp_def->nilai_acuan = $this->format_number($t, 4);
-//                        }
-//                        array_push($temp, $temp_def);
-//                    }
-//                }
-//            }
-//            $open_temp = array_column($temp, 'nilai_acuan');
-//            array_push($temp, min($open_temp));
-//
-//            $temp_bobot_fuzzy->nama_kriteria = $def->kriteria;
-//            $temp_bobot_fuzzy->kode_kriteria = $def->kode_kriteria;
-//            $temp_bobot_fuzzy->min_result = min($open_temp);
-//
-//
-//            array_push($Nilai_Bobot_Fuzzy, $temp_bobot_fuzzy);
-//            array_push($DEFUZZIFIKASI,$temp);
-//        }
-//
-//        $sum = array_sum(array_column($Nilai_Bobot_Fuzzy,'min_result'));
-//
-//        $normalisasi_bobot = [];
-//        foreach ($Nilai_Bobot_Fuzzy as $item_bobot_fuzzy){
-//            $temp_normalisasi_bobot = new \stdClass();
-//
-//            $temp_normalisasi_bobot->nama_kriteria = $item_bobot_fuzzy->nama_kriteria;
-//            $temp_normalisasi_bobot->kode_kriteria = $item_bobot_fuzzy->kode_kriteria;
-//            $temp_normalisasi_bobot->result = $item_bobot_fuzzy->min_result/ $sum;
-//
-//            array_push($normalisasi_bobot, $temp_normalisasi_bobot);
-//        }
-//
-//
-////        dd($distribution_matrik, $fuzzy_triangular_number, $sintetis_matrix,$DEFUZZIFIKASI, $Nilai_Bobot_Fuzzy, $normalisasi_bobot);
-//
-//        // END Method Perhitungan
 
-//        $perhitungan = collect($this->perhitungan($data_matrik_pairwaise_comparison, $data_kriteria));
-//
-//        dd($perhitungan);
+
+
+//        dd($distribution_matrik, $fuzzy_triangular_number, $sintetis_matrix,$DEFUZZIFIKASI, $Nilai_Bobot_Fuzzy, $normalisasi_bobot);
 
 
         if ($request->ajax()){
@@ -361,18 +247,20 @@ class C_Test extends Controller
             $total_u += $fuzzy->u;
         }
 
-        $total_l_1 = 1 / $total_l;
+        $total_l_1 = 1 / $total_u;
         $total_m_1 = 1 / $total_m;
-        $total_u_1 = 1 / $total_u;
+        $total_u_1 = 1 / $total_l;
 
         $sintetis_matrix = [];
+
         foreach ($fuzzy_triangular_number as $ftn){
             $sintetis = new \stdClass();
             $sintetis->kriteria = $ftn->kriteria;
             $sintetis->kode_kriteria = $ftn->kode_kriteria;
-            $sintetis->jumlah_l = $ftn->u * $total_u_1;
+            $sintetis->jumlah_l = $ftn->l * $total_l_1;
             $sintetis->jumlah_m = $ftn->m * $total_m_1;
-            $sintetis->jumlah_u = $ftn->l * $total_l_1;
+            $sintetis->jumlah_u = $ftn->u * $total_u_1;
+//            dd($fuzzy_triangular_number, $ftn->u, $total_u_1);
             array_push($sintetis_matrix, $sintetis);
         }
 
@@ -395,24 +283,31 @@ class C_Test extends Controller
                         array_push($temp, $temp_def);
                     }
                 }else{
+
+
                     if ($def->kode_kriteria != $def2->kode_kriteria){
                         $temp_def->nama_kriteria_pembanding = $def2->kriteria;
                         $temp_def->kode_kriteria_pembanding = $def2->kode_kriteria;
                         if ($def->jumlah_m >= $def2->jumlah_m){
                             $temp_def->nilai_acuan = 1;
-                        }elseif ($def->jumlah_l >= $def2->jumlah_u){
+                        }elseif ($def2->jumlah_l >= $def->jumlah_u){
                             $temp_def->nilai_acuan = 0;
                         }else{
 
-                            $q = $this->format_number($def2->jumlah_l, 4) - $this->format_number($def->jumlah_u, 4);
-                            $w = $this->format_number($def->jumlah_m, 4) - $this->format_number($def->jumlah_u, 4);
-                            $e = $this->format_number($def2->jumlah_m, 4) - $this->format_number($def2->jumlah_l, 4);
+                            $q = $this->format_number($def2->jumlah_l - $def->jumlah_u, 5);
+//                            dd($sintetis_matrix,$q, $this->format_number($def2->jumlah_l-$def->jumlah_u, 6));
+
+                            $w = $this->format_number($def->jumlah_m - $def->jumlah_u, 5);
+                            $e = $this->format_number($def2->jumlah_m - $def2->jumlah_l, 5);
                             $r = $w - $e;
                             $t = $this->format_number($q / $r, 4);
+
+//                            dd($q, $w, $e,$r,$t);
 
 //                            dd($sintetis_matrix, $def2->jumlah_l, $def->jumlah_u, $def->jumlah_m, $def->jumlah_u, $def2->jumlah_m, $def2->jumlah_l);
                             $temp_def->nilai_acuan = $this->format_number($t, 4);
                         }
+//                        dd($sintetis_matrix, $def->jumlah_m. " >= " .$def2->jumlah_m,  $def2->jumlah_l." >= ".$def->jumlah_u, $temp_def);
                         array_push($temp, $temp_def);
                     }
                 }
