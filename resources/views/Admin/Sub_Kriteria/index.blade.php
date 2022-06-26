@@ -67,7 +67,7 @@
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
-                                                                <form method="POST" enctype="multipart/form-data" action="{{route("edit_kriteria", $items->id)}}">
+                                                                <form method="POST" enctype="multipart/form-data" action="{{route("edit_sub_kriteria", $items->id)}}">
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="mb-3">
@@ -103,7 +103,7 @@
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <a href="{{route("delete_kriteria", $items->id)}}">
+                                                                    <a href="{{route("delete_sub_kriteria", $items->id)}}">
                                                                         <button type="button" class="btn btn-danger">Hapus Data</button>
                                                                     </a>
                                                                 </div>

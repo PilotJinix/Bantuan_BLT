@@ -52,9 +52,6 @@ Route::get("perhitungan_admin",[C_Perhitungan::class,"index"])->name("index_perh
 Route::get("prioritas_admin",[C_Prioritas::class,"index"])->name("index_prioritas_admin");
 
 
-//Test
-
-
 //Skala
 Route::get("skala",[C_Test::class,"index_skala"])->name("index_skala");
 Route::post("create_skala", [C_Test::class, "create_skala"])->name("create_skala");
@@ -77,6 +74,13 @@ Route::post("create_skala_kriteria/{kode}", [C_Test::class, "create_skala_kriter
 Route::get("sub_kriteria/{kodekriteria}",[C_SubKriteria::class,"index"])->name("index_sub_kriteria");
 Route::post("data-sub-kriteria",[C_SubKriteria::class,"data_sub_kriteria"])->name("data_sub_kriteria");
 Route::post("create_sub_kriteria/{kodeunik}", [C_SubKriteria::class, "create_sub_kriteria"])->name("create_sub_kriteria");
+Route::post("edit_sub_kriteria/{id}", [C_SubKriteria::class, "edit_sub_kriteria"])->name("edit_sub_kriteria");
+Route::get("delete_sub_kriteria/{kode}", [C_SubKriteria::class, "delete_sub_kriteria"])->name("delete_sub_kriteria");
+
 
 //skala Sub kriteria
 Route::post("create_skala_sub_kriteria/{kode}", [C_SubKriteria::class, "create_skala_sub_kriteria"])->name("create_skala_sub_kriteria");
+
+
+// Informasi Penerima Bantuan
+//Route::get('informasi-penerima-bantuan', )
