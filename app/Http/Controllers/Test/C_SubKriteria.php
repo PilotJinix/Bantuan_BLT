@@ -437,6 +437,38 @@ class C_SubKriteria extends Controller
         }
     }
 
+    public function edit_sub_kriteria(Request $request, $id){
+        $request->validate([
+            "nama_kriteria" => "required",
+            "nama_kode" => "required",
+        ]);
+
+//        dd($request, $id);
+
+        try {
+            $input["nama_sub_kriteria"] = $request->nama_kriteria;
+            $input["kode_sub"] = $request->nama_kode;
+            $input["updated_at"] = Carbon::now();
+
+            DB::table("master_sub_kriteria")->where("id", $id)->update($input);
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return $exception;
+        }
+    }
+
+    public function delete_sub_kriteria($id){
+        try {
+            $skala_kriteria = DB::table("master_sub_kriteria")->where("id", $id)->first();
+//            dd($skala_kritia);
+            DB::table("master_sub_kriteria")->where("id", $id)->delete();
+            DB::table("skala_sub_kriteria")->where("sub_kriteria_pembanding", $skala_kriteria->kode_unik)->delete();
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return $exception;
+        }
+    }
+
     // Skala Kriteria
     public function create_skala_sub_kriteria(Request $request, $kode){
 
