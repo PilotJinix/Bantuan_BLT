@@ -71,7 +71,7 @@ class C_Test extends Controller
             DB::table("skala_kriteria")->where("kriteria_awal", $cek_master->kode_unik)->delete();
             return redirect(route("index_skala"));
         }catch (\Exception $exception){
-            return $exception;
+            return redirect(route("index_skala"));
         }
     }
 

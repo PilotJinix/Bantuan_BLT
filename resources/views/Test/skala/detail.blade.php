@@ -357,40 +357,6 @@
                     { data: 'result', name: 'result'}
                 ]
             })
-            {{--$('#dt_progres').DataTable({--}}
-            {{--    searching: false,--}}
-            {{--    processing: true,--}}
-            {{--    serverSide: true,--}}
-            {{--    ajax: {--}}
-            {{--        url : '{{route("test_tap")}}',--}}
-            {{--        data: {data:'all'}--}}
-            {{--    },--}}
-            {{--    columns: [--}}
-            {{--        {--}}
-            {{--            "data" :null, "sortable": false,--}}
-            {{--            render : function (data, type, row, meta) {--}}
-            {{--                return meta.row + meta.settings._iDisplayStart + 1--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        { data: 'nama_aplikasi', name: 'nama_aplikasi' },--}}
-            {{--        { data: 'type', name: 'type' },--}}
-            {{--        { data: 'alamat_subdomain', name: 'alamat_subdomain' },--}}
-            {{--        { data: 'dbms', name: 'dbms' },--}}
-            {{--        { data: 'status', name: 'status' },--}}
-            {{--        { data: 'pic', name: 'pic' },--}}
-            {{--        { data: 'action', name: 'action' },--}}
-            {{--        { data: 'update', name: 'update' },--}}
-            {{--    ]--}}
-            {{--});--}}
-
-            {{--$.ajax({--}}
-            {{--    type: "GET",--}}
-            {{--    url:'{{url()->current()}}',--}}
-            {{--    dataType: "json",--}}
-            {{--    success:function (respon) {--}}
-            {{--        console.log(respon);--}}
-            {{--    }--}}
-            {{--})--}}
         })
     </script>
 @endsection
