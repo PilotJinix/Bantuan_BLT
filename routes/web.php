@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\C_Kriteria;
 use App\Http\Controllers\Admin\C_Periode;
 use App\Http\Controllers\Test\C_Test;
 use App\Http\Controllers\Test\C_SubKriteria;
+use App\Http\Controllers\Admin\C_Kondisi_Penerima;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,4 +84,5 @@ Route::post("create_skala_sub_kriteria/{kode}", [C_SubKriteria::class, "create_s
 
 
 // Informasi Penerima Bantuan
-//Route::get('informasi-penerima-bantuan', )
+Route::get('informasi-penerima-bantuan', [C_Kondisi_Penerima::class, 'index'])->name('index_informasi');
+Route::post("create_periode", [C_Kondisi_Penerima::class, "create_periode"])->name("create_periode");
