@@ -12,10 +12,9 @@
                 <li><a href="{{route("index_penerima_admin")}}" aria-expanded="false"><i class="nav-icon ti ti-book"></i><span class="nav-title">Data Penerima</span></a></li>
                 <li class="nav-static-title">Perhitungan F-AHP</li>
                 <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Master Skala Kriteria</span></a> </li>
-                <li class="nav-static-title">Perhitungan F-AHP</li>
-                <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Master Skala Sub-Kriteria</span></a> </li>
                 <li class="nav-static-title">Prioritas Penerima</li>
                 <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Informasi Penerima Bantuan</span></a> </li>
+                <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Logout</span></a> </li>
             </li>
                 <li class="sidebar-banner p-4 bg-gradient text-center m-3 d-block rounded">
                     <h5 class="text-white mb-1">Sistem Penunjang Keputusan</h5>
