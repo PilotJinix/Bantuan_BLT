@@ -6,12 +6,12 @@
             <ul class="metismenu " id="sidebarNav">
                 <li class="nav-static-title">Menu</li>
                 <li class="active"><a href="{{route("/")}}" aria-expanded="false"><i class="nav-icon ti ti-home"></i><span class="nav-title">Dashboard</span></a></li>
-                <li class="nav-static-title">Kelola User</li>
+                <li class="nav-static-title">Kelola Akun Pengguna</li>
                 <li><a href="{{route("index_user_admin")}}" aria-expanded="false"><i class="nav-icon ti ti-user"></i><span class="nav-title">Kelola User</span></a></li>
-                <li class="nav-static-title">Data Penerima</li>
+                <li class="nav-static-title">Data Penerima Bantuan</li>
                 <li><a href="{{route("index_penerima_admin")}}" aria-expanded="false"><i class="nav-icon ti ti-book"></i><span class="nav-title">Data Penerima</span></a></li>
                 <li class="nav-static-title">Perhitungan F-AHP</li>
-                <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Master Skala</span></a> </li>
+                <li><a href="{{route("index_skala")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Master Skala Kriteria</span></a> </li>
                 <li class="nav-static-title">Prioritas Penerima</li>
                 <li><a href="{{route("index_informasi")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Informasi Penerima Bantuan</span></a> </li>
             </li>

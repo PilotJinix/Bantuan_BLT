@@ -9,7 +9,7 @@
                     <!-- begin page title -->
                     <div class="d-block d-sm-flex flex-nowrap align-items-center">
                         <div class="page-title mb-2 mb-sm-0">
-                            <h1>Kelola User</h1>
+                            <h1>Data Penerima</h1>
                         </div>
                         <div class="ml-auto d-flex align-items-center">
                             <nav>
@@ -38,7 +38,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm">
                                     <div class="d-flex justify-content-sm-end">
-                                        <button type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_user"><i class="ri-add-line align-bottom me-1"></i>Tambah Pengguna</button>
+                                        <button type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_user"><i class="ri-add-line align-bottom me-1"></i>Tambah Calon Penerima</button>
                                     </div>
                                 </div>
                             </div>

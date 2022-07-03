@@ -129,7 +129,7 @@
                     <!-- begin page title -->
                     <div class="d-block d-sm-flex flex-nowrap align-items-center">
                         <div class="page-title mb-2 mb-sm-0">
-                            <h1>Mapping Skala</h1>
+                            <h1>Skala Perbandingan Kriteria</h1>
                         </div>
                     </div>
                     <!-- end page title -->
