@@ -24,9 +24,9 @@ use App\Http\Controllers\Admin\C_Kondisi_Penerima;
 */
 
 Route::get("/", [Main_Controller::class, "index"])->name("/");
-Route::post("create_periode", [C_Periode::class, "index"])->name("create_periode");
-Route::post("update_periode/{kode}", [C_Periode::class, "edit_periode"])->name("update_periode");
-Route::get("delete_periode/{kode}", [C_Periode::class, "delete_periode"])->name("delete_periode");
+Route::post("create_periode", [C_Periode::class, "create_periode"])->name("create_periode");
+Route::post("edit_periode/{id}", [C_Periode::class, "edit_periode"])->name("edit_periode");
+Route::get("delete_periode/{id}", [C_Periode::class, "delete_periode"])->name("delete_periode");
 
 Route::get("user_admin", [C_User::class, "index"])->name("index_user_admin");
 Route::post("create_user_admin", [C_User::class, "create_user"])->name("create_user_admin");
@@ -85,4 +85,5 @@ Route::post("create_skala_sub_kriteria/{kode}", [C_SubKriteria::class, "create_s
 
 // Informasi Penerima Bantuan
 Route::get('informasi-penerima-bantuan', [C_Kondisi_Penerima::class, 'index'])->name('index_informasi');
-Route::post("create_periode", [C_Kondisi_Penerima::class, "create_periode"])->name("create_periode");
+Route::get('informasi-penerima-bantuan/detail', [C_Kondisi_Penerima::class, 'insert_user'])->name('index_user');
+Route::post('informasi-penerima-bantuan/create_user', [C_Kondisi_Penerima::class, 'create_user'])->name('create_user_informasi');

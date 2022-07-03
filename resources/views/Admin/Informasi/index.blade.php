@@ -74,11 +74,11 @@
                                     <input type="text" name="nama_periode" id="nama_periode" class="form-control" placeholder="Masukkan Versi" required />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="customername-field" class="form-label">Periode</label>
-                                    <input type="date" name="period" id="period" class="form-control" placeholder="Masukkan Periode" required />
+                                    <label for="period" class="form-label">Periode</label>
+                                    <input type="text" name="period" id="period" class="form-control" placeholder="Masukkan Periode" required />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="customername-field" class="form-label">Kuota</label>
+                                    <label for="kuota" class="form-label">Kuota</label>
                                     <input type="number" min="1" name="kuota" id="kuota" class="form-control" placeholder="Masukkan Versi" required />
                                 </div>
                                 <div class="mb-3">
@@ -113,6 +113,18 @@
         var kuota;
         var status;
 
+        var edit_nama_periode;
+        var edit_period;
+        var edit_kuota;
+        var edit_status;
+
+        $("#period").datepicker({
+            format: "dd-mm-yyyy",
+            viewMode: "month",
+            minViewMode: "month",
+            autoclose:true
+        });
+
 
         $(document).ready(function () {
             $('#versi').on('change', data_versi);
@@ -142,6 +154,8 @@
                 })
 
             })
+
+
 
             function data_versi() {
                 $('#dt_versi').DataTable().clear().destroy();

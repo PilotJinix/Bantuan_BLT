@@ -11,53 +11,61 @@ use Ramsey\Uuid\Uuid;
 
 class C_Periode extends Controller
 {
-    public function index(Request $request){
+    public function create_periode(Request $request){
         $request->validate([
-            "kuota"=>"required",
-            "nama"=>"required",
-            "status"=>"required",
+            "versi" => "required",
+            "nama_periode" => "required",
+            "period" => "required",
+            "kuota" => "required",
+            "status" => "required",
         ]);
 
-        $input["kode_unik"] = Uuid::uuid1()->toString();
-        $input["nama"] = $request->nama;
-        $input["kuota"] = $request->kuota;
-        $input["status"] = $request->status;
-        $input["created_at"] = Carbon::now();
-        $input["updated_at"] = Carbon::now();
-
         try {
+            $input['kode_unik_skala'] = $request->versi;
+            $input["kode_unik"] = Uuid::uuid1()->toString();
+            $input["nama"] = $request->nama_periode;
+            $input["periode"] = date_format(date_create($request->period), 'Y-m-d H:i:s');
+            $input["kuota"] = $request->kuota;
+            $input["status"] = $request->status;
+            $input["created_at"] = Carbon::now();
+            $input["updated_at"] = Carbon::now();
+
             DB::table("data_periode")->insert($input);
-            return redirect(route("/"));
+            return response()->json(array("status" => 'good', "msg" => ""));
         }catch (\Exception $exception){
-            return redirect()->back();
-
+            return response()->json(array("status" => 'Galat', "msg" => ""));
         }
     }
 
-    public function edit_periode(Request $request, $kode){
+    public function edit_periode(Request $request, $id){
         $request->validate([
-            "kuota"=>"required",
-            "nama"=>"required",
-            "status"=>"required",
+            "edit_nama_periode" => "required",
+            "edit_period" => "required",
+            "edit_kuota" => "required",
+            "edit_status" => "required",
         ]);
 
-        $input["nama"] = $request->nama;
-        $input["kuota"] = $request->kuota;
-        $input["status"] = $request->status;
-        $input["updated_at"] = Carbon::now();
-
+//        dd($request->id);
         try {
-            DB::table("data_periode")->where("kode_unik", $kode)->update($input);
-            return redirect(route("/"));
-        }catch (\Exception $exception){
+            $input["nama"] = $request->edit_nama_periode;
+            $input["periode"] = date_format(date_create($request->edit_period), 'Y-m-d H:i:s');
+            $input["kuota"] = $request->edit_kuota;
+            $input["status"] = $request->edit_status;
+            $input["created_at"] = Carbon::now();
+            $input["updated_at"] = Carbon::now();
+
+            DB::table("data_periode")->where('id', $id)->update($input);
             return redirect()->back();
+        }catch (\Exception $exception){
+//            return $exception;
+            return response()->json(array("status" => 'Galat', "msg" => ""));
         }
     }
 
-    public function delete_periode($kode){
+    public function delete_periode($id){
         try {
-            DB::table("data_periode")->where("kode_unik", $kode)->delete();
-            return redirect(route("/"));
+            DB::table("data_periode")->where("id", $id)->delete();
+            return redirect()->back();
         }catch (\Exception $exception){
             return redirect()->back();
         }
