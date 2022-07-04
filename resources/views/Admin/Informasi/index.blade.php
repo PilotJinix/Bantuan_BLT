@@ -34,7 +34,7 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <button style="display: none;" id="btn_modal" type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_versi"><i class="ri-add-line align-bottom me-1"></i>Tambah Versi</button>
+                                            <button style="display: none;" id="btn_modal" type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_versi"><i class="ri-add-line align-bottom me-1"></i>Tambah Periode</button>
                                         </div>
 
                                     </div>
@@ -71,7 +71,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Nama Periode</label>
-                                    <input type="text" name="nama_periode" id="nama_periode" class="form-control" placeholder="Masukkan Versi" required />
+                                    <input type="text" name="nama_periode" id="nama_periode" class="form-control" placeholder="Masukkan Nama Periode" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="period" class="form-label">Periode</label>
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="kuota" class="form-label">Kuota</label>
-                                    <input type="number" min="1" name="kuota" id="kuota" class="form-control" placeholder="Masukkan Versi" required />
+                                    <input type="number" min="1" name="kuota" id="kuota" class="form-control" placeholder="Masukkan Kuota" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status</label>
