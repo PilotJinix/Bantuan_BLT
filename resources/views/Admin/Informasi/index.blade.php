@@ -89,6 +89,7 @@
                                         <option value="0">Tidak Aktif</option>
                                     </select>
                                 </div>
+
                             </div>
                         </form>
                         <div class="modal-footer">

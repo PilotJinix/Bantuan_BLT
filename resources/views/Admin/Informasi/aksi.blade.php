@@ -2,7 +2,7 @@
 {{--<a href="javascript:void(0)" class="btn btn-outline-warning btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#editpengguna".$model->id)}}"><i class="fa fa-pencil"></i></a>--}}
 {{--<a href="javascript:void(0)" class="btn btn-outline-danger btn-sm delete mr-2" data-toggle="modal" data-target="{{__("#deletepengguna".$model->id)}}"><i class="fa fa-trash" ></i></a>--}}
 @if($model->status == 1)
-    <a href="{{route('index_user')}}" class="btn btn-outline-success btn-sm detail mr-2" title="Input Data Penerima"><i class="fa fa-user-circle-o"></i></a>
+    <a href="{{route('index_user', $model->id)}}" class="btn btn-outline-success btn-sm detail mr-2" title="Input Data Penerima"><i class="fa fa-user-circle-o"></i></a>
 @endif
 <a href="#" class="btn btn-outline-warning btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#editpengguna".$model->id)}}" title="Edit Periode"><i class="fa fa-pencil"></i></a>
 <a href="#" class="btn btn-outline-danger btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#deletepengguna".$model->id)}}" title="Delete Periode"><i class="fa fa-trash"></i></a>

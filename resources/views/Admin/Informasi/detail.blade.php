@@ -34,59 +34,71 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kriteria</th>
-                                        <th>Kode</th>
-                                        <th>Prioritas</th>
-                                        <th>Terakhir Update</th>
+                                        <th>NIK</th>
+                                        <th>Nama Penerima</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-{{--                                    @php--}}
-{{--                                        $i = 1;--}}
-{{--                                    @endphp--}}
-{{--                                    @foreach($data_sub_kriteria as $items)--}}
-{{--                                        <tr>--}}
-{{--                                            <td>{{$i++}}</td>--}}
-{{--                                            <td>{{$items->nama_sub_kriteria}}</td>--}}
-{{--                                            <td>{{$items->kode_sub}}</td>--}}
-{{--                                            <td>{{$items->prioritas_sub}}</td>--}}
-{{--                                            <td>{{date_format(date_create($items->updated_at), "D, d F Y h:i A")}}</td>--}}
-{{--                                            <td>--}}
-{{--                                                <div class="d-flex gap-2">--}}
-{{--                                                    --}}{{--                                                    <a href= "#" class='btn btn-outline-primary btn-sm detail mr-2' title='Detail'><i class='fas fa fa-eye'></i></a>--}}
-{{--                                                    <a href="javascript:void(0)" class="btn btn-outline-warning btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#editpengguna".$items->id)}}"><i class="fa fa-pencil"></i></a>--}}
-{{--                                                    <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm delete mr-2" data-toggle="modal" data-target="{{__("#deletepengguna".$items->id)}}"><i class="fa fa-trash" ></i></a>--}}
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach($data_pengajuan as $items)
+                                        <tr>
+                                            <td>{{$i++}}</td>
+                                            <td>{{$items->kode_penerima}}</td>
+                                            <td>{{$items->nama}}</td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    @if($items->status != 'Data Belum Terinput')
+                                                        <a href= "#" class='btn btn-outline-primary btn-sm detail mr-2' title='Detail'><i class='fas fa fa-eye'></i></a>
+                                                    @endif
+                                                    <a href="javascript:void(0)" class="btn btn-outline-warning btn-sm detail mr-2" data-toggle="modal" data-target="{{__("#editpengguna".$items->id)}}"><i class="fa fa-pencil"></i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm delete mr-2" data-toggle="modal" data-target="{{__("#deletepengguna".$items->id)}}"><i class="fa fa-trash" ></i></a>
 
-{{--                                                    <div class="modal fade" id="{{__('editpengguna'.$items->id)}}" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">--}}
-{{--                                                        <div class="modal-dialog" role="document">--}}
-{{--                                                            <div class="modal-content">--}}
-{{--                                                                <div class="modal-header">--}}
-{{--                                                                    <h5 class="modal-title">Edit Data User</h5>--}}
-{{--                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                                                                        <span aria-hidden="true">&times;</span>--}}
-{{--                                                                    </button>--}}
-{{--                                                                </div>--}}
-{{--                                                                <form method="POST" enctype="multipart/form-data" action="{{route("edit_sub_kriteria", $items->id)}}">--}}
-{{--                                                                    @csrf--}}
-{{--                                                                    <div class="modal-body">--}}
-{{--                                                                        <div class="mb-3">--}}
-{{--                                                                            <label for="customername-field" class="form-label">Nama Kriteria</label>--}}
-{{--                                                                            <input type="text" value="{{$items->nama_sub_kriteria}}" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Kriteria" required />--}}
-{{--                                                                        </div>--}}
-{{--                                                                        <div class="mb-3">--}}
-{{--                                                                            <label for="customername-field" class="form-label">Nama Kode</label>--}}
-{{--                                                                            <input type="text" value="{{$items->kode_sub}}" name="nama_kode" id="customername-field" class="form-control" placeholder="Masukkan Kode" required />--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                    <div class="modal-footer">--}}
-{{--                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>--}}
-{{--                                                                        <button type="submit" class="btn btn-success">Submit</button>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </form>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
+                                                    <div class="modal fade" id="{{__('editpengguna'.$items->id)}}" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Edit Data Penerima</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form method="POST" enctype="multipart/form-data" action="{{route("create_user_hasil", $items->kode_unik)}}">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <div class="mb-3">
+                                                                            <label for="customername-field" class="form-label">Nama Penerima</label>
+                                                                            <input type="text" value="{{$items->nama}}" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Kriteria" disabled/>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="customername-field" class="form-label">NIK</label>
+                                                                            <input type="text" value="{{$items->kode_penerima}}" name="nama_kode" id="customername-field" class="form-control" placeholder="Masukkan Kode" disabled/>
+                                                                        </div>
+                                                                        @foreach($data_kriteria['kriteria'] as $data)
+                                                                            <div class="mb-3">
+                                                                                <label for="status" class="form-label">{{$data->nama_kriteria}}</label>
+                                                                                <select name="status[]" class="form-control" id="status">
+                                                                                    <option selected disabled>Pilih Jawaban</option>
+                                                                                    @foreach($data_kriteria['sub_kriteria'] as $data_sub)
+                                                                                        @if($data->kode_unik == $data_sub -> kode_unik_kriteria )
+                                                                                            <option value="{{$data_sub->kode_unik}}">{{$data_sub->nama_sub_kriteria}}</option>
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+                                                                        <button type="submit" class="btn btn-success">Submit</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 {{--                                                    <div class="modal fade" id="{{__('deletepengguna'.$items->id)}}" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">--}}
 {{--                                                        <div class="modal-dialog" role="document">--}}
 {{--                                                            <div class="modal-content">--}}
@@ -110,10 +122,10 @@
 {{--                                                            </div>--}}
 {{--                                                        </div>--}}
 {{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -244,7 +256,7 @@
 {{--                </div>--}}
 {{--            </div>--}}
             <div class="modal fade" id="tambah_kriteria" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Data User</h5>
@@ -252,13 +264,13 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="POST" enctype="multipart/form-data" action="{{route('create_user_informasi')}}">
+                        <form method="POST" enctype="multipart/form-data" action="{{route('create_user_informasi', $data_kriteria['periode']->kode_unik)}}">
                             @csrf
                             <div class="modal-body">
                                 <div class="duallistbox">
-                                    <select name="multiple[]" multiple="multiple" size="10" id="duallistbox">
+                                    <select name="multiple[]" multiple id="duallistbox1">
                                         @foreach($data_calon_penerima as $items)
-                                            <option value="{{$items->nik}}">{{$items->nama. ' - '. $items->nik}}</option>
+                                            <option value="{{$items->nik}}">{{$items->nama}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -277,5 +289,28 @@
         </div>
         <!-- end container-fluid -->
     </div>
+@endsection
+
+@section('js')
+    <script>
+        // $(function(){
+        //     var dualListBox = jQuery(".duallistbox1");
+        //     if (dualListBox.length > 0) {
+        //         $('#duallistbox1').bootstrapDualListbox({
+        //             nonSelectedListLabel: 'Non-selected',
+        //             selectedListLabel: 'Selected',
+        //             preserveSelectionOnMove: 'moved',
+        //             moveOnSelect: false
+        //         });
+        //     }
+        // });
+
+        $('#duallistbox1').bootstrapDualListbox({
+            nonSelectedListLabel: 'Non-selected',
+            selectedListLabel: 'Selected',
+            preserveSelectionOnMove: 'moved',
+            moveOnSelect: false
+        });
+    </script>
 @endsection
 
