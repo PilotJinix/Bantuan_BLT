@@ -9,7 +9,7 @@
                     <!-- begin page title -->
                     <div class="d-block d-sm-flex flex-nowrap align-items-center">
                         <div class="page-title mb-2 mb-sm-0">
-                            <h1>Daftar Skala Perbandingan</h1>
+                            <h1>Daftar Versi Perhitungan F-AHP</h1>
                         </div>
                     </div>
                     <!-- end page title -->

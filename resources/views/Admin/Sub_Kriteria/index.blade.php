@@ -25,7 +25,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm">
                                     <div class="d-flex justify-content-sm-end">
-                                        <button type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_kriteria"><i class="ri-add-line align-bottom me-1"></i>Tambah Kriteria</button>
+                                        <button type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_kriteria"><i class="ri-add-line align-bottom me-1"></i>Tambah Sub Kriteria</button>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title">Edit Data User</h5>
+                                                                    <h5 class="modal-title">Edit Data Sub Kriteria</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
@@ -135,7 +135,7 @@
                     <!-- begin page title -->
                     <div class="d-block d-sm-flex flex-nowrap align-items-center">
                         <div class="page-title mb-2 mb-sm-0">
-                            <h1>Mapping Skala</h1>
+                            <h1>Skala Perbandingan Sub Kriteria</h1>
                         </div>
                     </div>
                     <!-- end page title -->
@@ -194,7 +194,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm">
                                     <div class="d-flex justify-content-sm-start">
-                                        <h3>Normalisasi</h3>
+                                        <h3>Normalisasi Perhitungan</h3>
                                     </div>
                                 </div>
                             </div>
@@ -203,8 +203,8 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kriteria</th>
-                                        <th>Nilai Kriteria</th>
+                                        <th>Nama Sub Kriteria</th>
+                                        <th>Nilai Sub Kriteria</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -218,7 +218,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Data Nilai Kriteria</h5>
+                            <h5 class="modal-title">Data Nilai Sub Kriteria</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -227,9 +227,9 @@
                             @csrf
                             <div class="modal-body" id="perbandingan">
                                 <div class="mb-3">
-                                    <label for="status-field" class="form-label">Kriteria Awal</label>
+                                    <label for="status-field" class="form-label">Sub Kriteria Awal</label>
                                     <select class="form-control" data-trigger name="awal" id="kriteria_awal" disabled>
-                                        <option selected disabled>Pilih Kriteria Awal</option>
+                                        <option selected disabled>Pilih Sub Kriteria Awal</option>
                                         @foreach($data_sub_kriteria as $data)
                                             @if($data->prioritas_sub == "1")
                                                 <option value="{{$data->kode_unik}}" {{$data->prioritas_sub == "1" ? "selected" : ""}} >{{$data->nama_sub_kriteria}}</option>
@@ -252,7 +252,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Data User</h5>
+                            <h5 class="modal-title">Data Sub Kriteria</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -261,7 +261,7 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="customername-field" class="form-label">Nama Kriteria</label>
+                                    <label for="customername-field" class="form-label">Nama Sub Kriteria</label>
                                     <input type="text" name="nama_sub_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Sub Kriteria" required />
                                 </div>
                                 <div class="mb-3">
