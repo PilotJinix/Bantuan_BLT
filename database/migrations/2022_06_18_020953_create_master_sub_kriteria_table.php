@@ -18,6 +18,7 @@ class CreateMasterSubKriteriaTable extends Migration
             $table->string("kode_unik_kriteria")->references("kode_unik")->on("master_kriteria")->onDelete("cascade")->onUpdate("cascade");
             $table->string("kode_unik")->unique();
             $table->string("nama_sub_kriteria");
+            $table->integer("bobot");
             $table->string("kode_sub");
             $table->integer("prioritas_sub");
             $table->timestamps();

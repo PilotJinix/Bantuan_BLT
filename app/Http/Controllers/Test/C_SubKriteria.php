@@ -419,12 +419,14 @@ class C_SubKriteria extends Controller
             "nama_sub_kriteria" => "required",
             "nama_sub_kode" => "required",
             "prioritas_sub" => "required",
+            "bobot_sub_kode" => "required",
         ]);
 
         try {
             $input["kode_unik_kriteria"] = $kode_unik;
             $input["kode_unik"] = Uuid::uuid1()->toString();
             $input["nama_sub_kriteria"] = $request->nama_sub_kriteria;
+            $input["bobot"] = $request->bobot_sub_kode;
             $input["kode_sub"] = $request->nama_sub_kode;
             $input["prioritas_sub"] = $request->prioritas_sub;
             $input["created_at"] = Carbon::now();
@@ -441,12 +443,14 @@ class C_SubKriteria extends Controller
         $request->validate([
             "nama_kriteria" => "required",
             "nama_kode" => "required",
+            "bobot_kriteria" => "required"
         ]);
 
 //        dd($request, $id);
 
         try {
             $input["nama_sub_kriteria"] = $request->nama_kriteria;
+            $input["bobot"] = $request->bobot_kriteria;
             $input["kode_sub"] = $request->nama_kode;
             $input["updated_at"] = Carbon::now();
 

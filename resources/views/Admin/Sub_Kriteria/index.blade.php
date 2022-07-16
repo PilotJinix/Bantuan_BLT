@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Kriteria</th>
+                                        <th>Bobot</th>
                                         <th>Kode</th>
                                         <th>Prioritas</th>
                                         <th>Terakhir Update</th>
@@ -49,6 +50,7 @@
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$items->nama_sub_kriteria}}</td>
+                                            <td>{{$items->bobot}}</td>
                                             <td>{{$items->kode_sub}}</td>
                                             <td>{{$items->prioritas_sub}}</td>
                                             <td>{{date_format(date_create($items->updated_at), "D, d F Y h:i A")}}</td>
@@ -71,8 +73,12 @@
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="mb-3">
-                                                                            <label for="customername-field" class="form-label">Nama Kriteria</label>
-                                                                            <input type="text" value="{{$items->nama_sub_kriteria}}" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Kriteria" required />
+                                                                            <label for="customername-field" class="form-label">Nama Sub Kriteria</label>
+                                                                            <input type="text" value="{{$items->nama_sub_kriteria}}" name="nama_kriteria" id="customername-field" class="form-control" placeholder="Masukkan Sub Kriteria" required />
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="customername-field" class="form-label">Nama Sub Kriteria</label>
+                                                                            <input type="number" min="0" max="100" value="{{$items->bobot}}" name="bobot_kriteria" id="customername-field" class="form-control" placeholder="Masukkan bobot Sub Kriteria" required />
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="customername-field" class="form-label">Nama Kode</label>
@@ -220,7 +226,6 @@
                         <form method="POST" enctype="multipart/form-data" action="{{route("create_skala_sub_kriteria", $data_kriteria->kode_unik)}}">
                             @csrf
                             <div class="modal-body" id="perbandingan">
-
                                 <div class="mb-3">
                                     <label for="status-field" class="form-label">Kriteria Awal</label>
                                     <select class="form-control" data-trigger name="awal" id="kriteria_awal" disabled>
@@ -262,6 +267,10 @@
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Nama Kode</label>
                                     <input type="text" name="nama_sub_kode" id="customername-field" class="form-control" placeholder="Masukkan Sub Kode" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customername-field" class="form-label">Bobot</label>
+                                    <input type="number" min="0" max="100" name="bobot_sub_kode" id="customername-field" class="form-control" placeholder="Masukkan Bobot Sub Kode" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Prioritas</label>
