@@ -55,9 +55,6 @@ class C_Kondisi_Penerima extends Controller
             ->get();
 
         $kode_periode = $data_kriteria['periode']->kode_unik;
-//        dd($id, $data_kriteria, $cek_kriteria);
-
-
 
         $data_calon_penerima = DB::table('datapenerima')
             ->whereRaw("nik NOT IN (select kode_penerima from status_pengajuan where kode_unik_periode = '$kode_periode')")
@@ -66,11 +63,28 @@ class C_Kondisi_Penerima extends Controller
 //        dd($data_calon_penerima, $data_periode);
 
         $data_pengajuan = DB::table('status_pengajuan')
-            ->select('status_pengajuan.*', 'datapenerima.nama', 'datapenerima.alamat')
+            ->select('status_pengajuan.*', 'datapenerima.nama', 'datapenerima.alamat', DB::raw('(CASE WHEN status_pengajuan.kode_unik = hasil_jawaban.kode_pengajuan THEN 1 ELSE 0 END) AS is_hasil'))
             ->leftJoin('datapenerima', 'datapenerima.nik', 'status_pengajuan.kode_penerima')
+            ->leftJoin('data_periode', 'data_periode.kode_unik', 'status_pengajuan.kode_unik_periode')
+            ->leftJoin('hasil_jawaban', 'hasil_jawaban.kode_pengajuan', 'status_pengajuan.kode_unik')
+            ->where('status_pengajuan.kode_unik_periode', '=', $data_kriteria['periode']->kode_unik)
 //            ->leftJoin('hasil_jawaban', 'hasil_jawaban.kode_pengajuan', 'status_pengajuan.kode_unik')
+            ->distinct()
             ->get();
-        return view('Admin.Informasi.detail', compact('data_pengajuan','data_calon_penerima', 'data_kriteria'));
+
+//        dd($data_pengajuan);
+
+        $data_pengajuan_edit = DB::table('hasil_jawaban')
+            ->select('hasil_jawaban.*', 'master_sub_kriteria.kode_unik_kriteria as kriteria')
+            ->leftJoin('status_pengajuan', 'hasil_jawaban.kode_pengajuan', 'status_pengajuan.kode_unik')
+            ->leftJoin('master_sub_kriteria', 'hasil_jawaban.kode_kriteria', 'master_sub_kriteria.kode_unik')
+            ->where('status_pengajuan.kode_unik_periode', '=', $data_kriteria['periode']->kode_unik)
+            ->distinct()
+            ->get();
+//        dd($data_kriteria['kriteria'],$data_pengajuan_edit, $data_kriteria['sub_kriteria']);
+
+//        dd($data_pengajuan);
+        return view('Admin.Informasi.detail', compact('data_pengajuan','data_calon_penerima', 'data_kriteria', 'data_pengajuan_edit'));
     }
 
     public function create_user(Request $request, $kode_unik){
@@ -91,6 +105,7 @@ class C_Kondisi_Penerima extends Controller
     }
 
     public function create_hasil(Request $request, $kode){
+//        dd($request);
         foreach ($request->status as $items){
             $input['kode_kriteria'] =$items;
             $input['jawaban'] =$items;
