@@ -202,7 +202,7 @@
                                         <div class="row g-4 mb-3">
                                             <div class="col-sm">
                                                 <div class="d-flex justify-content-sm-end">
-                                                    <button type="button" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i>Hasil Penerima Bantuan</button>
+                                                    <a href="{{route('ranking', $data_kriteria['periode']->id)}}" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i>Hasil Penerima Bantuan</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -88,3 +88,4 @@ Route::get('informasi-penerima-bantuan', [C_Kondisi_Penerima::class, 'index'])->
 Route::get('informasi-penerima-bantuan/detail/{id}', [C_Kondisi_Penerima::class, 'insert_user'])->name('index_user');
 Route::post('informasi-penerima-bantuan/create_user/{kode_unik}', [C_Kondisi_Penerima::class, 'create_user'])->name('create_user_informasi');
 Route::post('informasi-penerima-bantuan/create-hasil/{kode_unik}', [C_Kondisi_Penerima::class, 'create_hasil'])->name('create_user_hasil');
+Route::get('informasi-penerima-bantuan/rank/{id}', [C_Kondisi_Penerima::class, 'ranking'])->name('ranking');

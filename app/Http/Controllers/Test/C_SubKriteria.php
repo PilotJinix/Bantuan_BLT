@@ -262,6 +262,8 @@ class C_SubKriteria extends Controller
     }
 
     public function perhitungan($i, $j){
+
+//        dd($i,$j);
 //        $distribution_matrik = array_chunk($data_matrik_pairwaise_comparison, count($data_kriteria));
         $distribution_matrik = array_chunk($i, count($j));
 
