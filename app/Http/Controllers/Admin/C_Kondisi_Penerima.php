@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\VarDumper\Cloner\Data;
 use Yajra\DataTables\DataTables;
 
 class C_Kondisi_Penerima extends Controller
@@ -183,8 +184,10 @@ class C_Kondisi_Penerima extends Controller
             $result->total = array_sum(array_column($cek_jawaban, 'total'));
             array_push($total, $result);
         }
-        dd($total);
-//        $data['sub_kriteria'] = $this->index_sub_kriteria($id);
+        $final = DataTables::of(collect($total)->sortByDesc('total'))
+            ->make(true);
+
+        return $final;
     }
 
     //  Perhitungan

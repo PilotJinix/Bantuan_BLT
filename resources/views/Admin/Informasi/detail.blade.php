@@ -202,18 +202,18 @@
                                         <div class="row g-4 mb-3">
                                             <div class="col-sm">
                                                 <div class="d-flex justify-content-sm-end">
-                                                    <a href="{{route('ranking', $data_kriteria['periode']->id)}}" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i>Hasil Penerima Bantuan</a>
+                                                    <a id="final" class="btn btn-success add-btn text-white"><i class="ri-add-line align-bottom me-1"></i>Hasil Penerima Bantuan</a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="datatable-wrapper table-responsive">
-                                            <table id="datatable" class="display compact table table-striped table-bordered">
+                                            <table id="final_result" class="display compact table table-striped table-bordered" style="width: 100%;">
                                                 <thead>
                                                 <tr>
                                                     <th>No</th>
                                                     <th>NIK</th>
                                                     <th>Nama Penerima</th>
-                                                    <th>Status</th>
+                                                    <th>Jumlah</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -225,130 +225,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-{{--            <!-- begin row 1 -->--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-md-12 m-b-30">--}}
-{{--                    <!-- begin page title -->--}}
-{{--                    <div class="d-block d-sm-flex flex-nowrap align-items-center">--}}
-{{--                        <div class="page-title mb-2 mb-sm-0">--}}
-{{--                            <h1>Mapping Skala</h1>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <!-- end page title -->--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <!-- end row -->--}}
-{{--            <!-- begin row -->--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12">--}}
-{{--                    <div class="card card-statistics">--}}
-{{--                        <div class="card-body">--}}
-
-{{--                            <div class="row g-4 mb-3">--}}
-{{--                                <div class="col-sm">--}}
-{{--                                    <div class="d-flex justify-content-sm-end">--}}
-{{--                                        <button type="button" class="btn btn-success add-btn m-1" data-toggle="modal" data-target="#tambah_nilai_kriteria"><i class="ri-add-line align-bottom me-1"></i>Tambah Nilai Kriteria</button>--}}
-{{--                                        <button type="button" class="btn btn-warning add-btn m-1" id="perhitungan" style="display: none;"><i class="ri-add-line align-bottom me-1"></i>Perhitungan</button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="datatable-wrapper table-responsive">--}}
-{{--                                <table id="datatable" class="display text-md-center compact table table-striped table-bordered">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Kriteria</th>--}}
-{{--                                        @foreach($data_sub_kriteria as $item_kriteria)--}}
-{{--                                            <th>{{$item_kriteria -> nama_sub_kriteria}}</th>--}}
-{{--                                        @endforeach--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    @foreach($data_skala_sub_kriteria as $items_skala_kriteria)--}}
-{{--                                        <tr>--}}
-{{--                                            @foreach($items_skala_kriteria as $key => $data)--}}
-{{--                                                @if($key == 0)--}}
-{{--                                                    <th>{{$data}}</th>--}}
-{{--                                                @else--}}
-{{--                                                    <td>{{$data}}</td>--}}
-{{--                                                @endif--}}
-{{--                                            @endforeach--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="row" style="display: block;">--}}
-{{--                <div class="col-lg-12">--}}
-{{--                    <div class="card card-statistics">--}}
-{{--                        <div class="card-body">--}}
-
-{{--                            <div class="row g-4 mb-3">--}}
-{{--                                <div class="col-sm">--}}
-{{--                                    <div class="d-flex justify-content-sm-start">--}}
-{{--                                        <h3>Normalisasi</h3>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="datatable-wrapper table-responsive">--}}
-{{--                                <table id="dt_normalisasi" class="compact table table-striped table-bordered" style="width: 100%;">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>No</th>--}}
-{{--                                        <th>Nama Kriteria</th>--}}
-{{--                                        <th>Nilai Kriteria</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="modal fade" id="tambah_nilai_kriteria" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">--}}
-{{--                <div class="modal-dialog" role="document">--}}
-{{--                    <div class="modal-content">--}}
-{{--                        <div class="modal-header">--}}
-{{--                            <h5 class="modal-title">Data Nilai Kriteria</h5>--}}
-{{--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                                <span aria-hidden="true">&times;</span>--}}
-{{--                            </button>--}}
-{{--                        </div>--}}
-{{--                        <form method="POST" enctype="multipart/form-data" action="{{route("create_skala_sub_kriteria", $data_kriteria->kode_unik)}}">--}}
-{{--                            @csrf--}}
-{{--                            <div class="modal-body" id="perbandingan">--}}
-
-{{--                                <div class="mb-3">--}}
-{{--                                    <label for="status-field" class="form-label">Kriteria Awal</label>--}}
-{{--                                    <select class="form-control" data-trigger name="awal" id="kriteria_awal" disabled>--}}
-{{--                                        <option selected disabled>Pilih Kriteria Awal</option>--}}
-{{--                                        @foreach($data_sub_kriteria as $data)--}}
-{{--                                            @if($data->prioritas_sub == "1")--}}
-{{--                                                <option value="{{$data->kode_unik}}" {{$data->prioritas_sub == "1" ? "selected" : ""}} >{{$data->nama_sub_kriteria}}</option>--}}
-{{--                                            @endif--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="modal-footer">--}}
-{{--                                <div class="hstack gap-2 justify-content-end">--}}
-{{--                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>--}}
-{{--                                    <button type="submit" class="btn btn-success">Submit</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <div class="modal fade" id="tambah_kriteria" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -387,17 +263,37 @@
 
 @section('js')
     <script>
-        // $(function(){
-        //     var dualListBox = jQuery(".duallistbox1");
-        //     if (dualListBox.length > 0) {
-        //         $('#duallistbox1').bootstrapDualListbox({
-        //             nonSelectedListLabel: 'Non-selected',
-        //             selectedListLabel: 'Selected',
-        //             preserveSelectionOnMove: 'moved',
-        //             moveOnSelect: false
-        //         });
-        //     }
-        // });
+        $(document).ready(function () {
+            $('#final').on("click", function () {
+                $("#final_result").DataTable({
+                    scrollX: true,
+                    dom: 'Bfrtip',
+                    sortable: false,
+                    ordering: false,
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url:'{{route('ranking', $data_kriteria['periode']->id)}}',
+                    },
+                    columns: [
+                        {
+                            "data" :null, "sortable": false,
+                            "searchable":false,
+                            render : function (data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1
+                            }
+                        },
+                        { data: 'nik', name: 'nik'},
+                        { data: 'nama', name: 'nama'},
+                        { data: 'total', name: 'total'}
+                    ]
+                })
+            })
+        })
+
+
+
+
 
         $('#duallistbox1').bootstrapDualListbox({
             nonSelectedListLabel: 'Non-selected',
