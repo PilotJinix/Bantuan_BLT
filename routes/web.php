@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth', 'role:Super Admin']], function (){
     Route::post('informasi-penerima-bantuan/create_user/{kode_unik}', [C_Kondisi_Penerima::class, 'create_user'])->name('create_user_informasi');
     Route::post('informasi-penerima-bantuan/create-hasil/{kode_unik}', [C_Kondisi_Penerima::class, 'create_hasil'])->name('create_user_hasil');
     Route::post('informasi-penerima-bantuan/edit-hasil/{kode_unik}', [C_Kondisi_Penerima::class, 'edit_hasil'])->name('edit_user_hasil');
+    Route::get("informasi-penerima-bantuan/delete_user/{id}",[C_Kondisi_Penerima::class,"delete_user"])->name("delete_user_penerima");
     Route::get('informasi-penerima-bantuan/rank/{id}', [C_Kondisi_Penerima::class, 'ranking'])->name('ranking');
 
 });
@@ -197,6 +198,7 @@ Route::group(['middleware' => ['auth', 'role:Kadus']], function (){
     Route::post('informasi-penerima-bantuan/create_user-kadus/{kode_unik}', [C_Kondisi_Penerima::class, 'create_user'])->name('create_user_informasi-kadus');
     Route::post('informasi-penerima-bantuan/create-hasil-kadus/{kode_unik}', [C_Kondisi_Penerima::class, 'create_hasil'])->name('create_user_hasil-kadus');
     Route::post('informasi-penerima-bantuan/edit-hasil-kadus/{kode_unik}', [C_Kondisi_Penerima::class, 'edit_hasil'])->name('edit_user_hasil-kadus');
+    Route::get("informasi-penerima-bantuan/delete_user-kadus/{id}",[C_Kondisi_Penerima::class,"delete_user"])->name("delete_user_penerima-kadus");
     Route::get('informasi-penerima-bantuan/rank-kadus/{id}', [C_Kondisi_Penerima::class, 'ranking'])->name('ranking-kadus');
 
 

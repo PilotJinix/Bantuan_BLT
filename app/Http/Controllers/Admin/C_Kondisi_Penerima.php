@@ -750,7 +750,26 @@ class C_Kondisi_Penerima extends Controller
 //        return [$fuzzy_triangular_number, $total_l_1, $total_m_1, $total_u_1, $sintetis_matrix];
     }
 
+    public function delete_user($id){
+//        dd($id);
+        $status_pengajuan = DB::table('status_pengajuan')
+            ->where('id', $id)
+            ->first();
 
+        try {
+            DB::table('hasil_jawaban')
+                ->where('kode_pengajuan', $status_pengajuan->kode_unik)
+                ->delete();
+            DB::table('status_pengajuan')
+                ->where('id', $id)
+                ->delete();
+
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return redirect()->back();
+        }
+//        dd($status_pengajuan);
+    }
 
 
 

@@ -170,6 +170,34 @@
                                                                         </div>
                                                                     @endif
                                                                     <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm delete mr-2" title='Delete Data' data-toggle="modal" data-target="{{__("#deletepengguna".$items->id)}}"><i class="fa fa-trash" ></i></a>
+                                                                        <div class="modal fade" id="{{__('deletepengguna'.$items->id)}}" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalCenterTitle">PERINGATAN</h5>
+                                                                                        <a href="javascript:void(0);" class="btn-close" data-bs-dismiss="modal"></a>
+                                                                                    </div>
+                                                                                    <div class="modal-body" style="text-align: center;">
+                                                                                        <i class="fa fa-warning"
+                                                                                           style="font-size: 100px; color: orange"></i>
+                                                                                        <p>Semua data <strong>{{$items->nama}}</strong> akan dihapus!!
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        @if(auth()->user()->role == 'Super Admin')
+                                                                                            <a href="{{route("delete_user_penerima", $items->id)}}">
+                                                                                                <button type="button" class="btn btn-danger">Hapus Data</button>
+                                                                                            </a>
+                                                                                        @elseif(auth()->user()->role == 'Kadus')
+                                                                                            <a href="{{route("delete_user_penerima-kadus", $items->id)}}">
+                                                                                                <button type="button" class="btn btn-danger">Hapus Data</button>
+                                                                                            </a>
+                                                                                        @endif
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                 @endif
 
                                                             </div>

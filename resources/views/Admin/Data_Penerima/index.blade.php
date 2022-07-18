@@ -125,7 +125,7 @@
                                                                         <a href="{{route("delete_penerima_admin", $items->id)}}">
                                                                             <button type="button" class="btn btn-danger">Hapus Data</button>
                                                                         </a>
-                                                                    @elseif(auth()->user()->role == 'Kadus')
+                                                                        @elseif(auth()->user()->role == 'Kadus')
                                                                         <a href="{{route("delete_penerima_admin-kadus", $items->id)}}">
                                                                             <button type="button" class="btn btn-danger">Hapus Data</button>
                                                                         </a>
