@@ -19,16 +19,16 @@ class C_DataPenerima extends Controller
     }
 
     public function create_penerima(Request $request){
-        //buat ngecek pas disubmit nama pengguna kosong buat handle 
+        //buat ngecek pas disubmit nama pengguna kosong buat handle
         $request->validate([
             //reques buat ambil data validate untuk validasi
             "nik"=>"required",
             "nama"=>"required",
             "alamat"=>"required",
-            //nik,nama,alamat sesuai sama name di view nya 
+            //nik,nama,alamat sesuai sama name di view nya
         ]);
 
-        //errorhandler digunakan ketika user terjadi eror sistem tidak menampilkan eror 
+        //errorhandler digunakan ketika user terjadi eror sistem tidak menampilkan eror
         //ngasih tau salahnya dimana
         try {
             $input["nik"] = $request->nik;
@@ -41,35 +41,44 @@ class C_DataPenerima extends Controller
         }catch (\Expection $exception){
             return redirect()->back()->withInput();
         }
-        //handle error bisa dilakukan eksekusi atau nampilkan error nya 
+        //handle error bisa dilakukan eksekusi atau nampilkan error nya
     }
 
     //Edit Penerima
     public function edit_penerima(Request $request, $id){
-        //buat ngecek pas disubmit nama pengguna kosong buat handle 
+        //buat ngecek pas disubmit nama pengguna kosong buat handle
         //kenapa ada id nya karena butuh id request buat ngubah nya
         $request->validate([
             //reques buat ambil data validate untuk validasi
             "nik"=>"required",
             "nama"=>"required",
             "alamat"=>"required",
-            //nik,nama,alamat sesuai sama name di view nya 
+            //nik,nama,alamat sesuai sama name di view nya
         ]);
 
-        //errorhandler digunakan ketika user terjadi eror sistem tidak menampilkan eror 
+        $data_pengajuan = DB::table('datapenerima')
+            ->where('id', $id)
+            ->first();
+
+        //errorhandler digunakan ketika user terjadi eror sistem tidak menampilkan eror
         //ngasih tau salahnya dimana
         try {
             $input["nik"] = $request->nik;
             $input["nama"] = $request->nama;
             $input["alamat"] = $request->alamat;
 
+            $input_pengajuan['kode_penerima'] = $request->nik;
+
             DataPenerima::where("id",$id)->update($input);
+            DB::table('status_pengajuan')
+                ->where('kode_penerima', $data_pengajuan->nik)
+                ->update($input_pengajuan);
             //membuat row baru di database data berdasarkan input
             return redirect(route("index_penerima_admin"));
         }catch (\Expection $exception){
             return redirect()->back();
         }
-        //handle error bisa dilakukan eksekusi atau nampilkan error nya 
+        //handle error bisa dilakukan eksekusi atau nampilkan error nya
     }
 
     //Delete Penerima

@@ -98,8 +98,8 @@
                                                                             <input type="text" value="{{$items->nama}}" name="nama_pengguna" id="customername-field" class="form-control" placeholder="Masukkan Nama" required />
                                                                         </div>
                                                                         <div class="mb-3">
-                                                                            <label for="customername-field" class="form-label">NIK</label>
-                                                                            <input type="text" value="{{$items->nik}}" name="nik" id="customername-field" minlength="16" maxlength="16" class="form-control" placeholder="Masukkan NIK" required />
+                                                                            <label for="customername-field" class="form-label">NO KK</label>
+                                                                            <input type="text" value="{{$items->nik}}" name="nik" id="customername-field" minlength="16" maxlength="16" class="form-control" placeholder="Masukkan NO KK" required />
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="email-field" class="form-label">Username</label>
@@ -185,8 +185,8 @@
                                     <input type="text" name="nama_pengguna" id="customername-field" class="form-control" placeholder="Masukkan Nama" required />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="customername-field" class="form-label">NIK</label>
-                                    <input type="text" name="nik" id="customername-field" minlength="16" maxlength="16" class="form-control" placeholder="Masukkan NIK" required />
+                                    <label for="customername-field" class="form-label">NO KK</label>
+                                    <input type="text" name="nik" id="customername-field" minlength="16" maxlength="16" class="form-control" placeholder="Masukkan NO KK" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="email-field" class="form-label">Username</label>

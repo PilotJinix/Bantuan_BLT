@@ -34,7 +34,11 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <button style="display: none;" id="btn_modal" type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_versi"><i class="ri-add-line align-bottom me-1"></i>Tambah Periode</button>
+                                            @if(auth()->user()->role == 'Super Admin')
+                                                <button style="display: none;" id="btn_modal" type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_versi"><i class="ri-add-line align-bottom me-1"></i>Tambah Periode</button>
+                                            @elseif(auth()->user()->role == 'Kadus')
+                                                <button style="display: none;" id="btn_modal" type="button" class="btn btn-success add-btn" data-toggle="modal" data-target="#tambah_versi_kadus"><i class="ri-add-line align-bottom me-1"></i>Tambah Periode</button>
+                                            @endif
                                         </div>
 
                                     </div>
@@ -58,49 +62,96 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="tambah_versi" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Data User</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form id="form-add">
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="customername-field" class="form-label">Nama Periode</label>
-                                    <input type="text" name="nama_periode" id="nama_periode" class="form-control" placeholder="Masukkan Nama Periode" required />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="period" class="form-label">Periode</label>
-                                    <input type="text" name="period" id="period" class="form-control" placeholder="Masukkan Periode" required />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="kuota" class="form-label">Kuota</label>
-                                    <input type="number" min="1" name="kuota" id="kuota" class="form-control" placeholder="Masukkan Kuota" required />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select name="status" class="form-control" id="status">
-                                        <option selected disabled>Pilih Status</option>
-                                        <option value="1">Aktif</option>
-                                        <option value="0">Tidak Aktif</option>
-                                    </select>
-                                </div>
-
+            @if(auth()->user()->role == 'Super Admin')
+                <div class="modal fade" id="tambah_versi" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Data User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </form>
-                        <div class="modal-footer">
-                            <div class="hstack gap-2 justify-content-end">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
-                                <button id="submit" class="btn btn-success">Submit</button>
+                            <form id="form-add">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="customername-field" class="form-label">Nama Periode</label>
+                                        <input type="text" name="nama_periode" id="nama_periode" class="form-control" placeholder="Masukkan Nama Periode" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="period" class="form-label">Periode</label>
+                                        <input type="text" name="period" id="period" class="form-control" placeholder="Masukkan Periode" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kuota" class="form-label">Kuota</label>
+                                        <input type="number" min="1" name="kuota" id="kuota" class="form-control" placeholder="Masukkan Kuota" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select name="status" class="form-control" id="status">
+                                            <option selected disabled>Pilih Status</option>
+                                            <option value="1">Aktif</option>
+                                            <option value="0">Tidak Aktif</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <div class="modal-footer">
+                                <div class="hstack gap-2 justify-content-end">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+                                    <button id="submit" class="btn btn-success">Submit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @elseif(auth()->user()->role == 'Kadus')
+                <div class="modal fade" id="tambah_versi_kadus" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Data User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form id="form-add">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="customername-field" class="form-label">Nama Periode</label>
+                                        <input type="text" name="nama_periode" id="nama_periode" class="form-control" placeholder="Masukkan Nama Periode" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="period" class="form-label">Periode</label>
+                                        <input type="text" name="period" id="period1" class="form-control" placeholder="Masukkan Periode" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kuota" class="form-label">Kuota</label>
+                                        <input type="number" min="1" name="kuota" id="kuota" class="form-control" placeholder="Masukkan Kuota" required />
+                                    </div>
+                                    {{--                                <div class="mb-3">--}}
+                                    {{--                                    <label for="status" class="form-label">Status</label>--}}
+                                    {{--                                    <select name="status" class="form-control" id="status">--}}
+                                    {{--                                        <option selected disabled>Pilih Status</option>--}}
+                                    {{--                                        <option value="1">Aktif</option>--}}
+                                    {{--                                        <option value="0">Tidak Aktif</option>--}}
+                                    {{--                                    </select>--}}
+                                    {{--                                </div>--}}
+
+                                </div>
+                            </form>
+                            <div class="modal-footer">
+                                <div class="hstack gap-2 justify-content-end">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+                                    <button id="submit_kadus" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- end row -->
         </div>
         <!-- end container-fluid -->
@@ -126,6 +177,13 @@
             autoclose:true
         });
 
+        $("#period1").datepicker({
+            format: "dd-mm-yyyy",
+            viewMode: "month",
+            minViewMode: "month",
+            autoclose:true
+        });
+
 
         $(document).ready(function () {
             $('#versi').on('change', data_versi);
@@ -136,6 +194,11 @@
                 period = document.getElementById('period').value;
                 kuota = document.getElementById('kuota').value;
                 status = document.getElementById('status').value;
+
+                console.log(nama_periode);
+                console.log(period);
+                console.log(kuota);
+                console.log(status);
                 $.ajax({
                     url: '{{ route('create_periode') }}',
                     type : 'POST',
@@ -156,12 +219,42 @@
 
             })
 
+            $('#submit_kadus').on('click', function () {
+                nama_periode = document.getElementById('nama_periode').value;
+                period = document.getElementById('period1').value;
+                kuota = document.getElementById('kuota').value;
+                console.log(nama_periode);
+                console.log(period);
+                console.log(kuota);
+                // status = document.getElementById('status').value;
+                $.ajax({
+                    url: '{{ route('create_periode-kadus') }}',
+                    type : 'POST',
+                    data : {
+                        'versi': versi,
+                        'nama_periode': nama_periode,
+                        'period' : period,
+                        'kuota' : kuota,
+                        // 'status' : status,
+                        '_token' : '{{csrf_token()}}'
+                    },
+                    success: function (res) {
+                        $('#tambah_versi_kadus').modal('hide');
+                        document.getElementById("form-add").reset();
+                        $('#dt_versi').DataTable().ajax.reload();
+                    }
+                })
 
+            })
 
             function data_versi() {
+                var role = '{{auth()->user()->role}}';
                 $('#dt_versi').DataTable().clear().destroy();
                 versi = document.getElementById('versi').value;
-                document.getElementById('btn_modal').style.display = 'block';
+                if (role != 'Kades'){
+                    document.getElementById('btn_modal').style.display = 'block';
+                }
+
                 console.log('in');
                 $("#dt_versi").DataTable({
                     scrollX: true,

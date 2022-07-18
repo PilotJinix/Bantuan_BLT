@@ -84,6 +84,8 @@ class C_Kondisi_Penerima extends Controller
             ->where('status_pengajuan.kode_unik_periode', '=', $data_kriteria['periode']->kode_unik)
             ->distinct()
             ->get();
+
+//        dd($data_pengajuan_edit, $data_kriteria['sub_kriteria']);
 //        dd($data_kriteria['kriteria'],$data_pengajuan_edit, $data_kriteria['sub_kriteria']);
 //        dd($data_pengajuan);
         return view('Admin.Informasi.detail', compact('data_pengajuan','data_calon_penerima', 'data_kriteria', 'data_pengajuan_edit'));
@@ -107,10 +109,10 @@ class C_Kondisi_Penerima extends Controller
     }
 
     public function create_hasil(Request $request, $kode){
-//        dd($request);
+
         foreach ($request->status as $items){
             $input['kode_kriteria'] =$items;
-            $input['jawaban'] =$items;
+            $input['jawaban'] = $items;
             $input['kode_pengajuan'] =$kode;
             $input['created_at'] = Carbon::now()->format('Y-m-d h:i:s');
             $input['updated_at'] = Carbon::now()->format('Y-m-d h:i:s');
@@ -119,6 +121,36 @@ class C_Kondisi_Penerima extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function edit_hasil(Request $request, $kode){
+//        dd($request, $kode);
+
+        try {
+            $cek_data_status = DB::table('status_pengajuan')
+                ->where('kode_unik', $kode)
+                ->first();
+
+            foreach ($request->status as $items){
+                $split = explode(':', $items);
+
+                $input['kode_kriteria'] =$split[0];
+                $input['jawaban'] =$split[0];
+//            dd($items);
+//            $input['kode_pengajuan'] =$kode;
+                $input['created_at'] = Carbon::now()->format('Y-m-d h:i:s');
+                $input['updated_at'] = Carbon::now()->format('Y-m-d h:i:s');
+
+                DB::table('hasil_jawaban')->where('kode_pengajuan', $cek_data_status->kode_unik)
+                    ->where('id', $split[1])
+                    ->update($input);
+            }
+
+            return redirect()->back();
+        }catch (\Exception $exception){
+            dd($exception);
+        }
+
     }
 
     public function ranking($id)

@@ -47,7 +47,7 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>NIK</th>
+                                        <th>NO KK</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th>Action</th>
@@ -77,12 +77,16 @@
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
-                                                                <form method="POST" enctype="multipart/form-data" action="{{route("edit_penerima_admin", $items->id)}}">
+                                                                @if(auth()->user()->role == 'Super Admin')
+                                                                    <form method="POST" enctype="multipart/form-data" action="{{route("edit_penerima_admin", $items->id)}}">
+                                                                @elseif(auth()->user()->role == 'Kadus')
+                                                                    <form method="POST" enctype="multipart/form-data" action="{{route("edit_penerima_admin-kadus", $items->id)}}">
+                                                                @endif
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="mb-3">
-                                                                            <label for="customername-field" class="form-label">NIK</label>
-                                                                            <input type="text" value="{{$items->nik}}" name="nik" id="customername-field" class="form-control" placeholder="Masukkan NIK" required />
+                                                                            <label for="customername-field" class="form-label">NO KK</label>
+                                                                            <input type="text" value="{{$items->nik}}" minlength="16" maxlength="16" name="nik" id="customername-field" class="form-control" placeholder="Masukkan NO KK" required />
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="customername-field" class="form-label">NAMA</label>
@@ -117,9 +121,16 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <a href="{{route("delete_penerima_admin", $items->id)}}">
-                                                                        <button type="button" class="btn btn-danger">Hapus Data</button>
-                                                                    </a>
+                                                                    @if(auth()->user()->role == 'Super Admin')
+                                                                        <a href="{{route("delete_penerima_admin", $items->id)}}">
+                                                                            <button type="button" class="btn btn-danger">Hapus Data</button>
+                                                                        </a>
+                                                                    @elseif(auth()->user()->role == 'Kadus')
+                                                                        <a href="{{route("delete_penerima_admin-kadus", $items->id)}}">
+                                                                            <button type="button" class="btn btn-danger">Hapus Data</button>
+                                                                        </a>
+                                                                    @endif
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -146,12 +157,18 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="POST" enctype="multipart/form-data" action="{{route("create_penerima_admin")}}">
+                        @if(auth()->user()->role == 'Super Admin')
+                            <form method="POST" enctype="multipart/form-data" action="{{route("create_penerima_admin")}}">
+                        @elseif(auth()->user()->role == 'Kades')
+                            <form method="POST" enctype="multipart/form-data" action="{{route("create_penerima_admin-kades")}}">
+                        @elseif(auth()->user()->role == 'Kadus')
+                            <form method="POST" enctype="multipart/form-data" action="{{route("create_penerima_admin-kadus")}}">
+                        @endif
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="customername-field" class="form-label">NIK</label>
-                                    <input type="text" name="nik" id="customername-field" minlength="16" maxlength="16" class="form-control" placeholder="Masukkan NIK" required />
+                                    <label for="customername-field" class="form-label">NO KK</label>
+                                    <input type="text" name="nik" id="customername-field" minlength="16" maxlength="16" class="form-control" placeholder="Masukkan NO KK" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">NAMA</label>
