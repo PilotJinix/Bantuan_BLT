@@ -79,6 +79,8 @@
                                                                 </div>
                                                                 @if(auth()->user()->role == 'Super Admin')
                                                                     <form method="POST" enctype="multipart/form-data" action="{{route("edit_penerima_admin", $items->id)}}">
+                                                                @elseif(auth()->user()->role == 'Kades')
+                                                                    <form method="POST" enctype="multipart/form-data" action="{{route("edit_penerima_admin-kades", $items->id)}}">
                                                                 @elseif(auth()->user()->role == 'Kadus')
                                                                     <form method="POST" enctype="multipart/form-data" action="{{route("edit_penerima_admin-kadus", $items->id)}}">
                                                                 @endif
@@ -125,7 +127,11 @@
                                                                         <a href="{{route("delete_penerima_admin", $items->id)}}">
                                                                             <button type="button" class="btn btn-danger">Hapus Data</button>
                                                                         </a>
-                                                                        @elseif(auth()->user()->role == 'Kadus')
+                                                                    @elseif(auth()->user()->role == 'Kades')
+                                                                        <a href="{{route("delete_penerima_admin-kades", $items->id)}}">
+                                                                            <button type="button" class="btn btn-danger">Hapus Data</button>
+                                                                        </a>
+                                                                    @elseif(auth()->user()->role == 'Kadus')
                                                                         <a href="{{route("delete_penerima_admin-kadus", $items->id)}}">
                                                                             <button type="button" class="btn btn-danger">Hapus Data</button>
                                                                         </a>

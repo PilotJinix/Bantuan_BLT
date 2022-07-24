@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\Admin\DataPenerimaDataTable;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,60 +36,21 @@ class C_Kondisi_Penerima extends Controller
         return view('Admin.Informasi.index', compact('data_skala'));
     }
 
-    public function insert_user($id){
-//        $data_periode = DB::table('data_periode')
-//            ->where('id', $id)
-//            ->first();
+    public function insert_user(DataPenerimaDataTable $dataPenerimaDataTable, $id){
 
         $data_kriteria['periode'] = DB::table('data_periode')
             ->where('id', $id)
             ->first();
-
-//        dd($data_kriteria['periode']);
-
-        $data_kriteria['kriteria'] = DB::table('master_kriteria')
-            ->where('kode_unik_skala', $data_kriteria['periode']->kode_unik_skala)
-            ->get();
-
-        $cek_kriteria = array_column($data_kriteria['kriteria']->toArray(), 'kode_unik');
-
-
-        $data_kriteria['sub_kriteria'] = DB::table('master_sub_kriteria')
-            ->whereIn('kode_unik_kriteria', $cek_kriteria)
-            ->get();
-
         $kode_periode = $data_kriteria['periode']->kode_unik;
-
         $data_calon_penerima = DB::table('datapenerima')
             ->whereRaw("nik NOT IN (select kode_penerima from status_pengajuan where kode_unik_periode = '$kode_periode')")
-            ->get();
-
-//        dd($data_calon_penerima, $data_periode);
-
-        $data_pengajuan = DB::table('status_pengajuan')
-            ->select('status_pengajuan.*', 'datapenerima.nama', 'datapenerima.alamat', DB::raw('(CASE WHEN status_pengajuan.kode_unik = hasil_jawaban.kode_pengajuan THEN 1 ELSE 0 END) AS is_hasil'))
-            ->leftJoin('datapenerima', 'datapenerima.nik', 'status_pengajuan.kode_penerima')
-            ->leftJoin('data_periode', 'data_periode.kode_unik', 'status_pengajuan.kode_unik_periode')
-            ->leftJoin('hasil_jawaban', 'hasil_jawaban.kode_pengajuan', 'status_pengajuan.kode_unik')
-            ->where('status_pengajuan.kode_unik_periode', '=', $data_kriteria['periode']->kode_unik)
-//            ->leftJoin('hasil_jawaban', 'hasil_jawaban.kode_pengajuan', 'status_pengajuan.kode_unik')
-            ->distinct()
-            ->get();
-
-//        dd($data_pengajuan);
-
-        $data_pengajuan_edit = DB::table('hasil_jawaban')
-            ->select('hasil_jawaban.*', 'master_sub_kriteria.kode_unik_kriteria as kriteria')
-            ->leftJoin('status_pengajuan', 'hasil_jawaban.kode_pengajuan', 'status_pengajuan.kode_unik')
-            ->leftJoin('master_sub_kriteria', 'hasil_jawaban.kode_kriteria', 'master_sub_kriteria.kode_unik')
-            ->where('status_pengajuan.kode_unik_periode', '=', $data_kriteria['periode']->kode_unik)
-            ->distinct()
             ->get();
 
 //        dd($data_pengajuan_edit, $data_kriteria['sub_kriteria']);
 //        dd($data_kriteria['kriteria'],$data_pengajuan_edit, $data_kriteria['sub_kriteria']);
 //        dd($data_pengajuan);
-        return view('Admin.Informasi.detail', compact('data_pengajuan','data_calon_penerima', 'data_kriteria', 'data_pengajuan_edit'));
+        return $dataPenerimaDataTable->with(['id'=>$id])->render('Admin.Informasi.detail', compact("data_kriteria", "data_calon_penerima"));
+//        return view('Admin.Informasi.detail', compact('data_pengajuan','data_calon_penerima', 'data_kriteria', 'data_pengajuan_edit'));
     }
 
     public function create_user(Request $request, $kode_unik){
@@ -148,7 +110,8 @@ class C_Kondisi_Penerima extends Controller
 
             return redirect()->back();
         }catch (\Exception $exception){
-            dd($exception);
+//            dd($exception);
+            return redirect()->back();
         }
 
     }

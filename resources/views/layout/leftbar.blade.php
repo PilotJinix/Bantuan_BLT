@@ -21,6 +21,8 @@
                         <a class="btn btn-square btn-inverse-light btn-xs d-inline-block mt-2 mb-0" href="#"> BLT-DD</a>
                     </li>
                 @elseif(auth()->user()->role == 'Kades')
+                    <li class="nav-static-title">Data Penerima Bantuan</li>
+                    <li><a href="{{route("index_penerima_admin-kades")}}" aria-expanded="false"><i class="nav-icon ti ti-book"></i><span class="nav-title">Data Penerima</span></a></li>
                     <li class="nav-static-title">Prioritas Penerima</li>
                     <li><a href="{{route("index_informasi-kades")}}" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Informasi Penerima Bantuan</span></a> </li>
                     <li class="sidebar-banner p-4 bg-gradient text-center m-3 d-block rounded">

@@ -119,6 +119,8 @@ Route::group(['middleware' => ['auth', 'role:Kades']], function (){
     Route::get('informasi-penerima-bantuan/detail-kades/{id}', [C_Kondisi_Penerima::class, 'insert_user'])->name('index_user-kades');
     Route::post('informasi-penerima-bantuan/create_user-kades/{kode_unik}', [C_Kondisi_Penerima::class, 'create_user'])->name('create_user_informasi-kades');
     Route::post('informasi-penerima-bantuan/create-hasil-kades/{kode_unik}', [C_Kondisi_Penerima::class, 'create_hasil'])->name('create_user_hasil-kades');
+    Route::post('informasi-penerima-bantuan/edit-hasil-kades/{kode_unik}', [C_Kondisi_Penerima::class, 'edit_hasil'])->name('edit_user_hasil-kades');
+    Route::get("informasi-penerima-bantuan/delete_user-kades/{id}",[C_Kondisi_Penerima::class,"delete_user"])->name("delete_user_penerima-kades");
     Route::get('informasi-penerima-bantuan/rank-kades/{id}', [C_Kondisi_Penerima::class, 'ranking'])->name('ranking-kades');
 
 

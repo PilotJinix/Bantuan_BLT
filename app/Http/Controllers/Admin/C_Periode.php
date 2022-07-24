@@ -35,7 +35,7 @@ class C_Periode extends Controller
                 DB::table("data_periode")->insert($input);
                 return response()->json(array("status" => 'good', "msg" => ""));
             }catch (\Exception $exception){
-                dd($exception);
+//                dd($exception);
                 return response()->json(array("status" => 'Galat', "msg" => ""));
             }
 
